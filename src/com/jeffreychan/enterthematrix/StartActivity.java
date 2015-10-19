@@ -391,7 +391,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			int secondColumn = matrices[second][0].length;
 			
 			int resultRow = firstRow;
-			int resultColumn = secondColumn;
+			int resultColumn = firstColumn;
 			double[][] resultMatrix = null;
 
 			// ---------------------------------------------------------
@@ -427,6 +427,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			// Multiplying matrices
 			else if (op == 2){
 				if (firstColumn == secondRow){
+					resultColumn = secondColumn;
 					resultMatrix = new double[firstRow][secondColumn];
 					resultMatrix = multiplyMatrix(matrices[first], matrices[second]);
 				}
