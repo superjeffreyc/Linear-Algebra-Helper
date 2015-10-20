@@ -384,7 +384,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	    	for (String s : letters){
 	    		this.parseMatrices(matrices, s);
 	    	}
-			
+	    	
 			int firstRow = matrices[first].length;
 			int firstColumn = matrices[first][0].length;
 			int secondRow = matrices[second].length;
@@ -510,6 +510,24 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			    	savedToast.show();
 					isReady = false;
 				}
+			}
+			
+			// Basis for null space
+			else if (op == 5){
+				MatrixActivity.reduceMatrix(resultRow, resultColumn, resultMatrix);
+				// TODO: Determine free variables and get bases
+			}
+			
+			// Bases for column space
+			else if (op == 6){
+				MatrixActivity.reduceMatrix(resultRow, resultColumn, resultMatrix);
+				// TODO: Grab pivot columns only
+			}
+			
+			// Bases for row space
+			else if (op == 7){
+				MatrixActivity.reduceMatrix(resultRow, resultColumn, resultMatrix);
+				// TODO: Remove non-zero rows and transpose
 			}
 
 			
