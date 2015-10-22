@@ -278,7 +278,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void startNewMatrixActivity(String letter){
+	private void startNewMatrixActivity(String letter){
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
 
@@ -295,7 +295,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		startActivity(intent);
 	}
 	
-	public void parseMatrices(double[][][] matrices, String letter){
+	private void parseMatrices(double[][][] matrices, String letter){
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
 		int matrixNum = 0;
