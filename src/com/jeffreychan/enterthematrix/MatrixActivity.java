@@ -70,7 +70,12 @@ public class MatrixActivity extends Activity implements OnClickListener {
 			for (int j = 0; j < columns; j++){
 				myEditTextArray[i][j] = new EditText(this);
 				myEditTextArray[i][j].setLayoutParams(new LayoutParams(width/columns - 5, height/(rows+2) - 5));
-				myEditTextArray[i][j].setTextSize(110f/columns);
+				if (columns == 1){
+					myEditTextArray[i][j].setTextSize(80f);
+				}
+				else {
+					myEditTextArray[i][j].setTextSize(110f/columns);
+				}
 				myEditTextArray[i][j].setGravity(Gravity.CENTER);
 				myEditTextArray[i][j].setPadding(0, 0, 0, 0);
 				myEditTextArray[i][j].setBackgroundColor(Color.WHITE);

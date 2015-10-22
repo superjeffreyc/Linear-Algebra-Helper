@@ -10,6 +10,7 @@
     <string name="Identity">Insert Identity Matrix</string>
 
     <string-array name="rowArray">
+        <item>" 1 Row "</item>
         <item>" 2 Rows"</item>
         <item>" 3 Rows"</item>
         <item>" 4 Rows"</item>
@@ -21,6 +22,7 @@
         <item>" 10 Rows"</item>
     </string-array>
     <string-array name="columnArray">
+        <item>" 1 Column "</item>
         <item>" 2 Columns"</item>
         <item>" 3 Columns"</item>
         <item>" 4 Columns"</item>

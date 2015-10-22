@@ -84,7 +84,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		rowAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		rowMenu.setAdapter(rowAdapter);
 		rowMenu.setOnItemSelectedListener(this);
-		rowMenu.setSelection(1);
+		rowMenu.setSelection(2);
 
 		columnMenu = new Spinner(this);
 		columnMenu.setId(1);
@@ -94,7 +94,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		columnAdapter.setDropDownViewResource(R.layout.spinner_item);
 		columnMenu.setAdapter(columnAdapter);
 		columnMenu.setOnItemSelectedListener(this);
-		columnMenu.setSelection(1);
+		columnMenu.setSelection(2);
 		
 		firstMatrix = new Spinner(this);
 		firstMatrix.setId(2);
@@ -360,20 +360,16 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			startActivity(intent);
 		}
 	    else if (v.getId() == matrixA.getId()){
-	    	// Edit Matrix A
-	    	this.startNewMatrixActivity("A");
+	    	this.startNewMatrixActivity("A");	// Edit Matrix A
 		}
 	    else if (v.getId() == matrixB.getId()){
-	    	// Edit Matrix B
-	    	this.startNewMatrixActivity("B");
+	    	this.startNewMatrixActivity("B");	// Edit Matrix B
 		}
 	    else if (v.getId() == matrixC.getId()){
-	    	// Edit Matrix C
-	    	this.startNewMatrixActivity("C");
+	    	this.startNewMatrixActivity("C");	// Edit Matrix C
 		}
 	    else if (v.getId() == matrixD.getId()){
-	    	// Edit Matrix D
-	    	this.startNewMatrixActivity("D");
+	    	this.startNewMatrixActivity("D");	// Edit Matrix D
 		}
 	    else if (v.getId() == calculateButton.getId()){
 	    	boolean isReady = true;
@@ -402,7 +398,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			if (op == 0){
 				if (firstRow == secondRow && firstColumn == secondColumn){
 					resultMatrix = new double[firstRow][firstColumn];
-					resultMatrix = addMatrix(matrices[first], matrices[second]);
+					resultMatrix = MatrixOperations.addMatrix(matrices[first], matrices[second]);
 				}
 				else {
 					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
@@ -415,7 +411,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			else if (op == 1){
 				if (firstRow == secondRow && firstColumn == secondColumn){
 					resultMatrix = new double[firstRow][firstColumn];
-					resultMatrix = subtractMatrix(matrices[first], matrices[second]);
+					resultMatrix = MatrixOperations.subtractMatrix(matrices[first], matrices[second]);
 				}
 				else {
 					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
@@ -429,7 +425,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 				if (firstColumn == secondRow){
 					resultColumn = secondColumn;
 					resultMatrix = new double[firstRow][secondColumn];
-					resultMatrix = multiplyMatrix(matrices[first], matrices[second]);
+					resultMatrix = MatrixOperations.multiplyMatrix(matrices[first], matrices[second]);
 				}
 				else {
 					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
@@ -446,7 +442,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 				resultColumn = firstRow;
 				resultRow = firstColumn;
 				resultMatrix = new double[resultRow][resultColumn];
-				resultMatrix = transposeMatrix(matrices[first]);
+				resultMatrix = MatrixOperations.transposeMatrix(matrices[first]);
 			}
 			
 			// Inverting matrices
@@ -475,7 +471,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 						}
 					}
 					
-					MatrixActivity.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
+					MatrixOperations.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
 					
 					// Check for the identity matrix in the first partition
 					for (int i = 0; i < matrices[first].length; i++){
@@ -552,10 +548,10 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		if (parent.getId() == rowMenu.getId()){
-			row = pos + 2;
+			row = pos + 1;
 		}
 		else if (parent.getId() == columnMenu.getId()){
-			column = pos + 2;
+			column = pos + 1;
 		}
 		else if (parent.getId() == operator.getId()){
 			if (pos == 3 || pos == 4){
@@ -575,58 +571,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		}
 	}
 
-	public static double[][] multiplyMatrix(double[][] matrixA, double[][] matrixB){
-		double[][] matrixC = new double[matrixA.length][matrixB[0].length];
-		
-		for (int i = 0; i < matrixA.length; i++){
-			for (int j = 0; j < matrixB[0].length; j++){
-				for (int k = 0; k < matrixB.length; k++){
-						matrixC[i][j] += matrixA[i][k]*matrixB[k][j];
-				}
-			}
-		}
-		
-		return matrixC;
-	}
-	
-	public static double[][] addMatrix(double[][] matrixA, double[][] matrixB){
-		
-		double[][] matrixC = new double[matrixA.length][matrixB[0].length];
 
-		for (int i = 0; i < matrixA.length; i++){
-			for (int j = 0; j < matrixB[0].length; j++){
-				matrixC[i][j] = matrixA[i][j] + matrixB[i][j];
-			}
-		}
-		
-		return matrixC;
-	}
 	
-	public static double[][] subtractMatrix(double[][] matrixA, double[][] matrixB){
-		
-		double[][] matrixC = new double[matrixA.length][matrixB[0].length];
-
-		for (int i = 0; i < matrixA.length; i++){
-			for (int j = 0; j < matrixB[0].length; j++){
-				matrixC[i][j] = matrixA[i][j] - matrixB[i][j];
-			}
-		}
-		
-		return matrixC;
-	}
-	
-	public static double[][] transposeMatrix(double[][] matrixA){
-		
-		double[][] matrixC = new double[matrixA[0].length][matrixA.length];
-		
-		for (int i = 0; i < matrixA.length; i++){
-			for (int j = 0; j < matrixA[0].length; j++){
-				matrixC[j][i] = matrixA[i][j];
-			}
-		}
-		
-		return matrixC;
-	}
 	
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {

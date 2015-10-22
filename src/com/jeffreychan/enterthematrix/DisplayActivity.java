@@ -96,7 +96,12 @@ public class DisplayActivity extends Activity implements OnClickListener {
 			for (int j = 0; j < columns; j++){
 				myTextViewArray[i][j] = new TextView(this);
 				myTextViewArray[i][j].setLayoutParams(new LayoutParams(width/columns - 5, height/(rows+2) - 5));
-				myTextViewArray[i][j].setTextSize(110f/columns);
+				if (columns == 1){
+					myTextViewArray[i][j].setTextSize(80f);
+				}
+				else {
+					myTextViewArray[i][j].setTextSize(110f/columns);
+				}
 				myTextViewArray[i][j].setGravity(Gravity.CENTER);
 				myTextViewArray[i][j].setBackgroundColor(Color.WHITE);
 				myTextViewArray[i][j].setX(j * width/columns);
