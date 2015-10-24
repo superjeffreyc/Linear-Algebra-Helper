@@ -322,7 +322,15 @@ public class MatrixActivity extends Activity implements OnClickListener {
 					if (myEditTextArray[i][j].getText().toString().equals("")){
 						matrix[i][j] = 0.0;
 					}
-					else{
+					else if (myEditTextArray[i][j].getText().toString().contains("/")){
+						String[] s = myEditTextArray[i][j].getText().toString().split("/");
+						try {
+							matrix[i][j] = Double.parseDouble(s[0]) / Double.parseDouble(s[1]);
+						} catch (NumberFormatException e){
+							// Leave element as 0
+						}
+					}
+					else {
 						try{
 							matrix[i][j] = Double.parseDouble(myEditTextArray[i][j].getText().toString());
 						}
@@ -333,8 +341,10 @@ public class MatrixActivity extends Activity implements OnClickListener {
 					}
 				}
 			}
+
+			double[][] resultMatrix = MatrixOperations.reduceMatrix(rows, columns, matrix);
+			String matrixString = MatrixOperations.matrixToString(rows, columns, resultMatrix);
 			
-			String matrixString = MatrixOperations.reduceMatrix(rows, columns, matrix);
 			Intent intent = new Intent(this, DisplayActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("matrix", matrixString);

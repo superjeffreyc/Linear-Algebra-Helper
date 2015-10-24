@@ -576,7 +576,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 						}
 					}
 					
-					MatrixOperations.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
+					resultMatrix = MatrixOperations.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
 					
 					// Check for the identity matrix in the first partition
 					for (int i = 0; i < matrices[first].length; i++){

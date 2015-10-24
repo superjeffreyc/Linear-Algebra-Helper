@@ -4,8 +4,15 @@ import java.text.DecimalFormat;
 
 public class MatrixOperations {
 
-	public static String reduceMatrix(int rows, int columns, double[][] matrix) {
+	public static double[][] reduceMatrix(int rows, int columns, double[][] matrixA) {
 
+		double[][] matrix = new double[rows][columns];
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				matrix[i][j] = matrixA[i][j];
+			}
+		}
+		
 		// Check for zero matrix
 		boolean isAllZero = true;			
 		for (int i = 0; i < rows; i++){
@@ -92,7 +99,7 @@ public class MatrixOperations {
 			// we're done with the entire matrix
 		}
 
-		return MatrixOperations.matrixToString(rows, columns, matrix);
+		return matrix;
 
 	}
 	
