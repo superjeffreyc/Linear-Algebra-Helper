@@ -393,7 +393,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	public void saveScalar(){
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
-		editor.putFloat("scalar", scalar);
+		editor.putFloat("scalar", (float) scalar);
 		editor.commit();
 	}
 	
