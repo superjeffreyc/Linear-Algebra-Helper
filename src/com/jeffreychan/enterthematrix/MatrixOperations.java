@@ -155,12 +155,24 @@ public class MatrixOperations {
 		for (int i = 0; i < matrixA.length; i++){
 			for (int j = 0; j < matrixB[0].length; j++){
 				for (int k = 0; k < matrixB.length; k++){
-						matrixC[i][j] += matrixA[i][k]*matrixB[k][j];
+					matrixC[i][j] += matrixA[i][k]*matrixB[k][j];
 				}
 			}
 		}
 		
 		return matrixC;
+	}
+	
+	public static double[][] multiplyScalar(int rows, int columns, double[][] matrixA, double scalar){
+		double[][] matrixB = new double[rows][columns];
+		
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				matrixB[i][j] = matrixA[i][j] * scalar;
+			}
+		}
+		
+		return matrixB;
 	}
 	
 	public static double[][] addMatrix(double[][] matrixA, double[][] matrixB){

@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 public class MatrixActivity extends Activity implements OnClickListener {
 
-	Button reduceButton, saveA, saveB, saveC, saveD;
+	Button reduceButton, saveA, saveB, saveC, saveD, saveE, saveScalar;
 	private int rows, columns, width, height;
 	private double[][] matrix;
 	EditText[][] myEditTextArray;
@@ -36,6 +36,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 	String[] splitMatrix = null;
 	RelativeLayout mainLayout;
 	boolean isStarting = true;
+	int saveButtonWidth;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		display.getSize(size);
 		width = size.x;
 		height = size.y;
+		
+		saveButtonWidth = width/5;
 
 		// Create the proper number of TextViews and arrange them according to the number of rows and columns
 		for (int i = 0; i < rows; i++){
@@ -82,7 +85,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 				myEditTextArray[i][j].setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 				myEditTextArray[i][j].setX(j * width/columns);
 				myEditTextArray[i][j].setY(i * height/(rows+2));
-				
+
 				// If not creating a new matrix
 				if (splitMatrix != null){
 					if ((((columns)*i) + j) < splitMatrix.length){
@@ -116,7 +119,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		
 		saveA = new Button(this);
 		saveA.setText("Save to A");
-		saveA.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
+		saveA.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveA.setX(0);
 		saveA.setY(4*height/5);
 		saveA.setOnClickListener(this);
@@ -124,27 +127,36 @@ public class MatrixActivity extends Activity implements OnClickListener {
 				
 		saveB = new Button(this);
 		saveB.setText("Save to B");
-		saveB.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveB.setX(width/4);
+		saveB.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveB.setX(width/5);
 		saveB.setY(4*height/5);
 		saveB.setOnClickListener(this);
 		saveB.setId(2);
 		
 		saveC = new Button(this);
 		saveC.setText("Save to C");
-		saveC.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveC.setX(width/2);
+		saveC.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveC.setX(2*width/5);
 		saveC.setY(4*height/5);
 		saveC.setOnClickListener(this);
 		saveC.setId(3);
 		
 		saveD = new Button(this);
 		saveD.setText("Save to D");
-		saveD.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveD.setX(3*width/4);
+		saveD.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveD.setX(3*width/5);
 		saveD.setY(4*height/5);
 		saveD.setOnClickListener(this);
 		saveD.setId(4);
+		
+		saveE = new Button(this);
+		saveE.setText("Save to E");
+		saveE.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveE.setX(4*width/5);
+		saveE.setY(4*height/5);
+		saveE.setOnClickListener(this);
+		saveE.setId(5);
+
 		
 		// Add the buttons to the relative layout
 		mainLayout.addView(reduceButton);
@@ -152,6 +164,8 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		mainLayout.addView(saveB);
 		mainLayout.addView(saveC);
 		mainLayout.addView(saveD);
+		mainLayout.addView(saveE);
+
 
 
 	}
@@ -164,163 +178,17 @@ public class MatrixActivity extends Activity implements OnClickListener {
 			saveB.setY(height - saveA.getHeight());
 			saveC.setY(height - saveA.getHeight());
 			saveD.setY(height - saveA.getHeight());
+			saveE.setY(height - saveA.getHeight());
 			isStarting = false;
 		}
 	}
-	
-	public static String reduceMatrix(int rows, int columns, double[][] matrix) {
 
-		// Check for zero matrix
-		boolean isAllZero = true;			
-		for (int i = 0; i < rows; i++){
-			for (int j = 0; j < columns; j++){
-				if (matrix[i][j] != 0){
-					isAllZero = false;
-				}
-			}
-		}
-
-		if (!isAllZero){
-
-			int currentRowIndex = 0;	// Current row we are on
-			
-			// MAIN LOOP reducing by column
-			for (int j = 0; j < columns; j++) {
-
-				boolean columnIsAllZero = true;
-				// Check that the current column j is all zero or not
-				for (int i = currentRowIndex; i < rows; i++){
-					if (matrix[i][j] != 0) {
-						columnIsAllZero = false;
-					}
-				}
-
-				if (!columnIsAllZero) {
-
-					// Bubble sort the rows based on the current column, ignoring previously completed rows
-					for (int a = currentRowIndex; a < rows - 1; a++) {
-						for (int i = currentRowIndex; i < rows - 1; i++) {
-							if (matrix[i][j] < matrix[i+1][j] && matrix[i+1][j] != 0) {
-								double[] temp = matrix[i];
-								matrix[i] = matrix[i+1];
-								matrix[i+1] = temp;
-							}
-						}
-					}
-
-					// Add a multiple of one row to another row
-					for (int i = 0; i < rows; i++) {
-						if (i != currentRowIndex && matrix[i][j] != 0 && matrix[currentRowIndex][j] != 0) {
-							double factor = -1 * (matrix[i][j] / matrix[currentRowIndex][j]);
-
-							for (int k = 0; k < columns; k++){
-								matrix[i][k] += (factor * matrix[currentRowIndex][k]);
-								if (Math.abs(matrix[i][k]) % 1 < 0.0000000001) {
-									matrix[i][k] = (int) matrix[i][k];
-								}
-							}
-						}
-					}
-
-					currentRowIndex++;
-				}
-				else {
-					// we're done with the current column
-				}
-
-			}	// End of MAIN LOOP
-
-			// Multiply the rows by a non-zero constant to get the leading entries to equal 1
-			double simplify;
-			for (int i = 0; i < rows; i++) {
-				boolean isZero = true;
-				simplify = 1;
-				for (int j = 0; j < columns; j++) {
-					if (isZero && (matrix[i][j] != 0)) {
-						isZero = false;
-						if (matrix[i][j] != 1) {
-							simplify = matrix[i][j];
-						}
-					}
-				}
-
-				for (int j = 0; j < columns; j++) {
-					matrix[i][j] /= simplify;
-				}
-
-			}
-
-
-		}			
-		else {
-			// we're done with the entire matrix
-		}
-
-		return MatrixActivity.matrixToString(rows, columns, matrix);
-
-	}
-
-	public static String matrixToString(int rows, int columns, double[][] matrix){
-		
-		// Create a string of all the elements to pass to the next activity
-
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++){
-				if (matrix[i][j] == 0){
-					// If the element is 0, append 0
-					sb.append("0,");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 < 0.0000000001) {		
-					// If the remainder is nearly 0, remove the decimal places and append
-					sb.append((int) matrix[i][j] + ",");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 > 0.9999999999 && matrix[i][j] > 0) {
-					// If the element is positive and remainder is nearly 1, round up and append
-					sb.append((int) Math.ceil(matrix[i][j]) + ",");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 > 0.9999999999 && matrix[i][j] < 0) {
-					// If the element is negative and remainder is nearly 1, round down and append
-					sb.append((int) Math.floor(matrix[i][j]) + ",");
-				}
-				else{
-					// The element is not a whole number
-
-					boolean done = false;
-					double n = 2.0;
-					final int MAX_DENOM = 9000;
-					
-					// Finds possible denominators up to 9000 and append the appropriate fraction
-					while (!done && n <= MAX_DENOM) {
-						if ( (Math.abs( matrix[i][j]*1000000.0/1000000.0   ) / (1.0 /n) )  % 1 < 0.0000000001 || (Math.abs( matrix[i][j]*1000000.0/1000000.0   ) / (1.0 /n) )  % 1 > 0.9999999999)  {
-							done = true;
-							sb.append( (int) (Math.round(matrix[i][j]*1000000.0/1000000.0   / (1.0/n)))  + "/" + (int) n + ",");
-						}
-
-						n++;
-					}
-
-					// If a denominator cannot be found, just append the number as is
-					if (!done) {
-						sb.append(Math.round(matrix[i][j]*1000000.0/1000000.0) + ",");
-					}
-				}
-
-
-			}
-
-		}
-		
-		return sb.toString();
-	}
-	
 	private String editTextToString(){
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < rows; i++){
 	    	for (int j = 0; j < columns; j++){
-	    		if (myEditTextArray[i][j].getText().toString().equals("")){
+	    		if (myEditTextArray[i][j].getText().toString().equals("") || myEditTextArray[i][j].getText().toString().equals("-")){
 	    			sb.append("0,");
 	    		}
 	    		else{
@@ -459,14 +327,14 @@ public class MatrixActivity extends Activity implements OnClickListener {
 							matrix[i][j] = Double.parseDouble(myEditTextArray[i][j].getText().toString());
 						}
 						catch(NumberFormatException e){
-
+							// Leave element as 0
 						}
 
 					}
 				}
 			}
 			
-			String matrixString = reduceMatrix(rows, columns, matrix);
+			String matrixString = MatrixOperations.reduceMatrix(rows, columns, matrix);
 			Intent intent = new Intent(this, DisplayActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("matrix", matrixString);
@@ -487,7 +355,9 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		else if (v.getId() == saveD.getId()){
 			this.saveMatrix("D");
 		}
-		
+		else if (v.getId() == saveE.getId()){
+			this.saveMatrix("E");
+		}
 		
 	}
 	

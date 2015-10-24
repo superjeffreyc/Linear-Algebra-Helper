@@ -26,8 +26,9 @@ public class DisplayActivity extends Activity implements OnClickListener {
 	TextView[][] myTextViewArray;
 	private int rows, columns, width, height;
 	RelativeLayout mainLayout;
-	Button saveA, saveB, saveC, saveD;
+	Button saveA, saveB, saveC, saveD, saveE;
 	boolean isStarting = true;
+	int saveButtonWidth;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,12 @@ public class DisplayActivity extends Activity implements OnClickListener {
 		width = size.x;
 		height = size.y;
 		
+		saveButtonWidth = width/5;
+		
 		// Create save buttons
 		saveA = new Button(this);
 		saveA.setText("Save to A");
-		saveA.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
+		saveA.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveA.setX(0);
 		saveA.setY(4*height/5);
 		saveA.setOnClickListener(this);
@@ -66,8 +69,8 @@ public class DisplayActivity extends Activity implements OnClickListener {
 		
 		saveB = new Button(this);
 		saveB.setText("Save to B");
-		saveB.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveB.setX(width/4);
+		saveB.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveB.setX(width/5);
 		saveB.setY(4*height/5);
 		saveB.setOnClickListener(this);
 		saveB.setId(2);
@@ -75,8 +78,8 @@ public class DisplayActivity extends Activity implements OnClickListener {
 		
 		saveC = new Button(this);
 		saveC.setText("Save to C");
-		saveC.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveC.setX(width/2);
+		saveC.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveC.setX(2*width/5);
 		saveC.setY(4*height/5);
 		saveC.setOnClickListener(this);
 		saveC.setId(3);
@@ -84,12 +87,21 @@ public class DisplayActivity extends Activity implements OnClickListener {
 		
 		saveD = new Button(this);
 		saveD.setText("Save to D");
-		saveD.setLayoutParams(new LayoutParams(width/4, LayoutParams.WRAP_CONTENT));
-		saveD.setX(3*width/4);
+		saveD.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveD.setX(3*width/5);
 		saveD.setY(4*height/5);
 		saveD.setOnClickListener(this);
 		saveD.setId(4);
 		mainLayout.addView(saveD);
+		
+		saveE = new Button(this);
+		saveE.setText("Save to E");
+		saveE.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
+		saveE.setX(4*width/5);
+		saveE.setY(4*height/5);
+		saveE.setOnClickListener(this);
+		saveE.setId(5);
+		mainLayout.addView(saveE);
 		
 		// Create the proper number of TextViews and arrange them according to the number of rows and columns
 		for (int i = 0; i < rows; i++){
@@ -126,6 +138,7 @@ public class DisplayActivity extends Activity implements OnClickListener {
 			saveB.setY(height - saveA.getHeight());
 			saveC.setY(height - saveA.getHeight());
 			saveD.setY(height - saveA.getHeight());
+			saveE.setY(height - saveA.getHeight());
 			isStarting = false;
 		}
 	}
@@ -189,6 +202,9 @@ public class DisplayActivity extends Activity implements OnClickListener {
 		}
 		else if (v.getId() == saveD.getId()){
 			this.saveMatrix("D");
-		}		
+		}	
+		else if (v.getId() == saveE.getId()){
+			this.saveMatrix("E");
+		}	
 	}
 }
