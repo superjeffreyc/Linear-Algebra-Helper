@@ -183,22 +183,6 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private String editTextToString(){
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < rows; i++){
-	    	for (int j = 0; j < columns; j++){
-	    		if (myEditTextArray[i][j].getText().toString().equals("") || myEditTextArray[i][j].getText().toString().equals("-")){
-	    			sb.append("0,");
-	    		}
-	    		else{
-	    			sb.append(myEditTextArray[i][j].getText().toString() + ",");
-	    		}
-	    	}
-    	}
-		return sb.toString();
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -293,10 +277,43 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private double[][] editTextToMatrix(int rows, int columns){
+		
+		double[][] matrix = new double[rows][columns];
+		
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				if (myEditTextArray[i][j].getText().toString().equals("")){
+					matrix[i][j] = 0.0;
+				}
+				else if (myEditTextArray[i][j].getText().toString().contains("/")){
+					String[] s = myEditTextArray[i][j].getText().toString().split("/");
+					try {
+						matrix[i][j] = Double.parseDouble(s[0]) / Double.parseDouble(s[1]);
+					} catch (NumberFormatException e){
+						// Leave element as 0
+					}
+				}
+				else {
+					try{
+						matrix[i][j] = Double.parseDouble(myEditTextArray[i][j].getText().toString());
+					}
+					catch(NumberFormatException e){
+						// Leave element as 0
+					}
+	
+				}
+			}
+		}
+		
+		return matrix;
+	}
+
 	private void saveMatrix(String letter){
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
-		String matrixString = this.editTextToString();
+		double[][] currentMatrix = editTextToMatrix(rows, columns);
+		String matrixString = MatrixOperations.matrixToString(rows, columns, currentMatrix);		
 
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
@@ -317,30 +334,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 			matrix = new double[rows][columns]; // Set up the matrix
 
 			// Grab the entries from the edit texts
-			for (int i = 0; i < rows; i++){
-				for (int j = 0; j < columns; j++){
-					if (myEditTextArray[i][j].getText().toString().equals("")){
-						matrix[i][j] = 0.0;
-					}
-					else if (myEditTextArray[i][j].getText().toString().contains("/")){
-						String[] s = myEditTextArray[i][j].getText().toString().split("/");
-						try {
-							matrix[i][j] = Double.parseDouble(s[0]) / Double.parseDouble(s[1]);
-						} catch (NumberFormatException e){
-							// Leave element as 0
-						}
-					}
-					else {
-						try{
-							matrix[i][j] = Double.parseDouble(myEditTextArray[i][j].getText().toString());
-						}
-						catch(NumberFormatException e){
-							// Leave element as 0
-						}
-
-					}
-				}
-			}
+			matrix = editTextToMatrix(rows, columns);
 
 			double[][] resultMatrix = MatrixOperations.reduceMatrix(rows, columns, matrix);
 			String matrixString = MatrixOperations.matrixToString(rows, columns, resultMatrix);

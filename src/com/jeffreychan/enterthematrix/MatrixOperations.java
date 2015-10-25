@@ -4,6 +4,62 @@ import java.text.DecimalFormat;
 
 public class MatrixOperations {
 
+	public static String matrixToString(int rows, int columns, double[][] matrix){
+		
+		// Create a string of all the elements to pass to the next activity
+	
+		StringBuilder sb = new StringBuilder();
+	
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++){
+				if (matrix[i][j] == 0){
+					// If the element is 0, append 0
+					sb.append("0,");
+				}
+				else if (Math.abs(matrix[i][j]) % 1 < 1E-6) {		
+					// If the remainder is nearly 0, remove the decimal places and append
+					sb.append((int) matrix[i][j] + ",");
+				}
+				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] > 0) {
+					// If the element is positive and remainder is nearly 1, round up and append
+					sb.append((int) Math.ceil(matrix[i][j]) + ",");
+				}
+				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] < 0) {
+					// If the element is negative and remainder is nearly 1, round down and append
+					sb.append((int) Math.floor(matrix[i][j]) + ",");
+				}
+				else{
+					// The element is not a whole number
+	
+					boolean done = false;
+					double n = 2.0;
+					final int MAX_DENOM = 10000;
+					
+					// Finds possible denominators up to MAX_DENOM and append the appropriate fraction
+					while (!done && n <= MAX_DENOM) {
+						if ( (Math.abs(matrix[i][j]) / (1.0/n) )  % 1 < 1E-6 || (Math.abs(matrix[i][j]) / (1.0/n) ) % 1 > 0.999999)  {
+							done = true;
+							sb.append( (int) (Math.round(matrix[i][j] / (1.0/n)))  + "/" + (int) n + ",");
+						}
+	
+						n++;
+					}
+	
+					// If a denominator cannot be found, just round the number to two decimal places
+					if (!done) {
+						DecimalFormat df = new DecimalFormat("#.00");
+						sb.append(df.format(matrix[i][j]) + ",");
+					}
+				}
+	
+	
+			}
+	
+		}
+		
+		return sb.toString();
+	}
+
 	public static double[][] reduceMatrix(int rows, int columns, double[][] matrixA) {
 
 		double[][] matrix = new double[rows][columns];
@@ -101,62 +157,6 @@ public class MatrixOperations {
 
 		return matrix;
 
-	}
-	
-	public static String matrixToString(int rows, int columns, double[][] matrix){
-		
-		// Create a string of all the elements to pass to the next activity
-
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++){
-				if (matrix[i][j] == 0){
-					// If the element is 0, append 0
-					sb.append("0,");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 < 1E-6) {		
-					// If the remainder is nearly 0, remove the decimal places and append
-					sb.append((int) matrix[i][j] + ",");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] > 0) {
-					// If the element is positive and remainder is nearly 1, round up and append
-					sb.append((int) Math.ceil(matrix[i][j]) + ",");
-				}
-				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] < 0) {
-					// If the element is negative and remainder is nearly 1, round down and append
-					sb.append((int) Math.floor(matrix[i][j]) + ",");
-				}
-				else{
-					// The element is not a whole number
-
-					boolean done = false;
-					double n = 2.0;
-					final int MAX_DENOM = 9000;
-					
-					// Finds possible denominators up to 9000 and append the appropriate fraction
-					while (!done && n <= MAX_DENOM) {
-						if ( (Math.abs(matrix[i][j]*1000000.0/1000000.0) / (1.0/n) )  % 1 < 1E-6 || (Math.abs(matrix[i][j]*1000000.0/1000000.0) / (1.0/n) ) % 1 > 0.999999)  {
-							done = true;
-							sb.append( (int) (Math.round(matrix[i][j]*1000000.0/1000000.0   / (1.0/n)))  + "/" + (int) n + ",");
-						}
-
-						n++;
-					}
-
-					// If a denominator cannot be found, just round the number to two decimal places
-					if (!done) {
-						DecimalFormat df = new DecimalFormat("#.00");
-						sb.append(df.format(matrix[i][j]) + ",");
-					}
-				}
-
-
-			}
-
-		}
-		
-		return sb.toString();
 	}
 	
 	public static double[][] multiplyMatrix(double[][] matrixA, double[][] matrixB){
