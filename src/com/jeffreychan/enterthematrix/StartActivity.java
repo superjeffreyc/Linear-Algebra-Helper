@@ -622,19 +622,47 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 			// Basis for null space
 			else if (op == 6){
-				MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
+				resultMatrix = new double[resultRow][resultColumn];
+				resultMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
 				// TODO: Determine free variables and get bases
 			}
 			
 			// Bases for column space
 			else if (op == 7){
-				MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
-				// TODO: Grab pivot columns only
+				double[][] tempMatrix = new double[resultRow][resultColumn];
+				tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrices[first]);
+				
+				int[] pivotColumns = new int[resultColumn];
+				int col = 0;
+				
+				for (int j = 0; j < resultColumn; j++){
+					int pivotCounter = 0;
+					for (int i = 0; i < resultRow; i++){
+						if (tempMatrix[i][j] == 1){
+							pivotCounter++;
+						}
+					}
+					if (pivotCounter == 1){
+						pivotColumns[col] = j;
+						col++;
+					}
+				}
+				
+				resultColumn = col;
+				resultMatrix = new double[resultRow][resultColumn];
+
+				for (int i = 0; i < resultRow; i++){
+					for (int j : pivotColumns){
+						resultMatrix[i][j] = matrices[first][i][j];
+					}
+				}
+				
 			}
 			
 			// Bases for row space
 			else if (op == 8){
-				MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
+				resultMatrix = new double[resultRow][resultColumn];
+				resultMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
 				// TODO: Remove non-zero rows and transpose
 			}
 			

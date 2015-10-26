@@ -49,6 +49,10 @@
         <item>" <sup><small>T</small></sup>"</item>
         <item>" <sup><small>-1</small></sup>"</item>
         <item>"* λ"</item>
+        <item>"Null Sp"</item>
+        <item>"Col Sp"</item>
+        <item>"Row Sp"</item>
+                
     </string-array>
 
     <string name="title_activity_rref">RREF</string>
