@@ -304,10 +304,10 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		
 		float displayScalar = prefs.getFloat("scalar", 1f); //0 is the default value
 		if (Math.abs(displayScalar % 1) < 1E-6){
-			scalarButton.setText("λ = " + (int) displayScalar);
+			scalarButton.setText("c = " + (int) displayScalar);
 		}
 		else {
-			scalarButton.setText("λ = " + displayScalar);
+			scalarButton.setText("c = " + displayScalar);
 		}
 	}
 	
@@ -443,8 +443,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	    else if (v.getId() == scalarButton.getId()){
 	    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-	    	alert.setTitle("Edit Scalar");
-	    	alert.setMessage("Enter a value for λ:");
+	    	alert.setTitle("Edit Scalar Constant");
+	    	alert.setMessage("Enter a value for c:");
 
 	    	final EditText input = new EditText(this);
 	    	input.setGravity(Gravity.CENTER);
@@ -661,9 +661,36 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			
 			// Bases for row space
 			else if (op == 8){
+				double[][] tempMatrix = new double[resultRow][resultColumn];
+				tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrices[first]);
+				
+				int[] pivotRows = new int[resultRow];
+				int row = 0;
+				
+				for (int i = 0; i < resultRow; i++){
+					int pivotCounter = 0;
+					for (int j = 0; j < resultRow; j++){
+						if (tempMatrix[i][j] == 1){
+							pivotCounter++;
+						}
+					}
+					if (pivotCounter == 1){
+						pivotRows[row] = i;
+						row++;
+					}
+				}
+				
+				tempMatrix = MatrixOperations.transposeMatrix(tempMatrix);
+				
+				resultRow = resultColumn;
+				resultColumn = row;
 				resultMatrix = new double[resultRow][resultColumn];
-				resultMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, resultMatrix);
-				// TODO: Remove non-zero rows and transpose
+				
+				for (int i = 0; i < resultRow; i++){
+					for (int j = 0; j < resultColumn; j++){
+						resultMatrix[i][j] = tempMatrix[i][j];
+					}
+				}
 			}
 			
 			// If there is no problem with the dimensions, display the calculation in a new activity
