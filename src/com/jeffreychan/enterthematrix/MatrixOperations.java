@@ -223,4 +223,24 @@ public class MatrixOperations {
 		
 		return matrixC;
 	}
+	
+	public static double[][] invertMatrix(double[][] matrixA){
+		return matrixA;
+		// TODO
+	}
+	
+	public static double[][] calculateNullSpace(double[][] matrixA){
+		return matrixA;
+		// TODO
+	}
+	
+	public static double[][] calculateColumnSpace(double[][] matrixA){
+		return matrixA;
+		// TODO
+	}
+	
+	public static double[][] calculateRowSpace(double[][] matrixA){
+		return matrixA;
+		// TODO
+	}
 }

@@ -502,12 +502,11 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			// Adding matrices
 			if (op == 0){
 				if (firstRow == secondRow && firstColumn == secondColumn){
-					resultMatrix = new double[firstRow][firstColumn];
 					resultMatrix = MatrixOperations.addMatrix(matrices[first], matrices[second]);
 				}
 				else {
-					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
-					savedToast.show();
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
+					message.show();
 					isReady = false;
 				}
 			}
@@ -515,12 +514,11 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			// Subtracting matrices
 			else if (op == 1){
 				if (firstRow == secondRow && firstColumn == secondColumn){
-					resultMatrix = new double[firstRow][firstColumn];
 					resultMatrix = MatrixOperations.subtractMatrix(matrices[first], matrices[second]);
 				}
 				else {
-					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
-					savedToast.show();
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
+					message.show();
 					isReady = false;
 				}
 			}
@@ -529,12 +527,11 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			else if (op == 2){
 				if (firstColumn == secondRow){
 					resultColumn = secondColumn;
-					resultMatrix = new double[firstRow][secondColumn];
 					resultMatrix = MatrixOperations.multiplyMatrix(matrices[first], matrices[second]);
 				}
 				else {
-					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
-			    	savedToast.show();
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
+					message.show();
 					isReady = false;
 				}
 			}
@@ -546,7 +543,6 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 				
 				resultColumn = firstRow;
 				resultRow = firstColumn;
-				resultMatrix = new double[resultRow][resultColumn];
 				resultMatrix = MatrixOperations.transposeMatrix(matrices[first]);
 			}
 			
@@ -600,15 +596,15 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 						
 					}
 					else {						
-						Toast savedToast = Toast.makeText(getApplicationContext(), "This matrix is not invertible", Toast.LENGTH_SHORT);
-				    	savedToast.show();
+						Toast message = Toast.makeText(getApplicationContext(), "This matrix is not invertible", Toast.LENGTH_SHORT);
+						message.show();
 						isReady = false;
 					}
 					
 				}
 				else {
-					Toast savedToast = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
-			    	savedToast.show();
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
+					message.show();
 					isReady = false;
 				}
 			}
