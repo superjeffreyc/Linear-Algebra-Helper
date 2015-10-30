@@ -234,9 +234,36 @@ public class MatrixOperations {
 		// TODO
 	}
 	
-	public static double[][] calculateColumnSpace(double[][] matrixA){
-		return matrixA;
-		// TODO
+	public static double[][] calculateColumnSpace(double[][] matrixA, int resultRow, int resultColumn){
+		double[][] tempMatrix = new double[resultRow][resultColumn];
+		tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
+		
+		int[] pivotColumns = new int[resultColumn];
+		int col = 0;
+		
+		for (int j = 0; j < resultColumn; j++){
+			int pivotCounter = 0;
+			for (int i = 0; i < resultRow; i++){
+				if (tempMatrix[i][j] == 1){
+					pivotCounter++;
+				}
+			}
+			if (pivotCounter == 1){
+				pivotColumns[col] = j;
+				col++;
+			}
+		}
+		
+		resultColumn = col;
+		double[][] resultMatrix = new double[resultRow][resultColumn];
+
+		for (int i = 0; i < resultRow; i++){
+			for (int j : pivotColumns){
+				resultMatrix[i][j] = matrixA[i][j];
+			}
+		}
+		
+		return resultMatrix;
 	}
 	
 	public static double[][] calculateRowSpace(double[][] matrixA){

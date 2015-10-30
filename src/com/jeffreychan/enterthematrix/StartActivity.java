@@ -625,34 +625,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			
 			// Bases for column space
 			else if (op == 7){
-				double[][] tempMatrix = new double[resultRow][resultColumn];
-				tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrices[first]);
-				
-				int[] pivotColumns = new int[resultColumn];
-				int col = 0;
-				
-				for (int j = 0; j < resultColumn; j++){
-					int pivotCounter = 0;
-					for (int i = 0; i < resultRow; i++){
-						if (tempMatrix[i][j] == 1){
-							pivotCounter++;
-						}
-					}
-					if (pivotCounter == 1){
-						pivotColumns[col] = j;
-						col++;
-					}
-				}
-				
-				resultColumn = col;
-				resultMatrix = new double[resultRow][resultColumn];
-
-				for (int i = 0; i < resultRow; i++){
-					for (int j : pivotColumns){
-						resultMatrix[i][j] = matrices[first][i][j];
-					}
-				}
-				
+				resultMatrix = MatrixOperations.calculateColumnSpace(matrices[first], resultRow, resultColumn);
 			}
 			
 			// Bases for row space
