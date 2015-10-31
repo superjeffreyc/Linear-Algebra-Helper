@@ -612,7 +612,6 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			// Multiply by constant lambda
 			else if (op == 5){
 				scalar = getScalar();
-				resultMatrix = new double[resultRow][resultColumn];
 				resultMatrix = MatrixOperations.multiplyScalar(resultRow, resultColumn, matrices[first], scalar);
 			}
 
@@ -625,41 +624,12 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			
 			// Bases for column space
 			else if (op == 7){
-				resultMatrix = MatrixOperations.calculateColumnSpace(matrices[first], resultRow, resultColumn);
+				resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[first]);
 			}
 			
 			// Bases for row space
 			else if (op == 8){
-				double[][] tempMatrix = new double[resultRow][resultColumn];
-				tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrices[first]);
-				
-				int[] pivotRows = new int[resultRow];
-				int row = 0;
-				
-				for (int i = 0; i < resultRow; i++){
-					int pivotCounter = 0;
-					for (int j = 0; j < resultRow; j++){
-						if (tempMatrix[i][j] == 1){
-							pivotCounter++;
-						}
-					}
-					if (pivotCounter == 1){
-						pivotRows[row] = i;
-						row++;
-					}
-				}
-				
-				tempMatrix = MatrixOperations.transposeMatrix(tempMatrix);
-				
-				resultRow = resultColumn;
-				resultColumn = row;
-				resultMatrix = new double[resultRow][resultColumn];
-				
-				for (int i = 0; i < resultRow; i++){
-					for (int j = 0; j < resultColumn; j++){
-						resultMatrix[i][j] = tempMatrix[i][j];
-					}
-				}
+				resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[first]);
 			}
 			
 			// If there is no problem with the dimensions, display the calculation in a new activity

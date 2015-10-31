@@ -234,7 +234,7 @@ public class MatrixOperations {
 		// TODO
 	}
 	
-	public static double[][] calculateColumnSpace(double[][] matrixA, int resultRow, int resultColumn){
+	public static double[][] calculateColumnSpace(int resultRow, int resultColumn, double[][] matrixA){
 		double[][] tempMatrix = new double[resultRow][resultColumn];
 		tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
 		
@@ -266,8 +266,38 @@ public class MatrixOperations {
 		return resultMatrix;
 	}
 	
-	public static double[][] calculateRowSpace(double[][] matrixA){
-		return matrixA;
-		// TODO
+	public static double[][] calculateRowSpace(int resultRow, int resultColumn, double[][] matrixA){
+		double[][] tempMatrix = new double[resultRow][resultColumn];
+		tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
+		
+		int[] pivotRows = new int[resultRow];
+		int row = 0;
+		
+		for (int i = 0; i < resultRow; i++){
+			int pivotCounter = 0;
+			for (int j = 0; j < resultRow; j++){
+				if (tempMatrix[i][j] == 1){
+					pivotCounter++;
+				}
+			}
+			if (pivotCounter == 1){
+				pivotRows[row] = i;
+				row++;
+			}
+		}
+		
+		tempMatrix = MatrixOperations.transposeMatrix(tempMatrix);
+		
+		resultRow = resultColumn;
+		resultColumn = row;
+		double[][] resultMatrix = new double[resultRow][resultColumn];
+		
+		for (int i = 0; i < resultRow; i++){
+			for (int j = 0; j < resultColumn; j++){
+				resultMatrix[i][j] = tempMatrix[i][j];
+			}
+		}
+		
+		return resultMatrix;
 	}
 }
