@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Enter The Matrix</string>
+    <string name="app_name">Linear Algebra Helper</string>
+
     <string name="action_settings">Settings</string>
+    <string name="title_activity_start">StartActivity</string>
     <string name="title_activity_matrix">MatrixActivity</string>
-    <string name="Reduce">Reduce</string>
+    <string name="title_activity_display">DisplayActivity</string>
+
     <string name="ClearAll">Clear All Entries</string>
     <string name="ClearZero">Clear Only Zero Entries</string>
     <string name="Identity">Insert Identity Matrix</string>
+
+    <string name="reduce">Reduce</string>
+    <string name="saveA">Save to A</string>
+    <string name="saveB">Save to B</string>
+    <string name="saveC">Save to C</string>
+    <string name="saveD">Save to D</string>
+    <string name="saveE">Save to E</string>
+
+    <string name="matrixA">Matrix A</string>
+    <string name="matrixB">Matrix B</string>
+    <string name="matrixC">Matrix C</string>
+    <string name="matrixD">Matrix D</string>
+    <string name="matrixE">Matrix E</string>
+    <string name="scalar">c = 1</string>
+
+    <string name="createMatrix"> Create new matrix:</string>
+    <string name="editMatrix"> Edit saved matrices:</string>
+    <string name="calculateMatrix"> Matrix Calculations:</string>
+    <string name="create">Create</string>
+    <string name="calculate">Calculate</string>
+
+    <string name="matrixA_dim">"Matrix A (%1$ix%2$i)"</string>
+    <string name="matrixB_dim">"Matrix B (%1$ix%2$i)"</string>
+    <string name="matrixC_dim">"Matrix C (%1$ix%2$i)"</string>
+    <string name="matrixD_dim">"Matrix D (%1$ix%2$i)"</string>
+    <string name="matrixE_dim">"Matrix E (%1$ix%2$i)"</string>
+
 
     <string-array name="rowArray">
         <item>" 1 Row "</item>
@@ -55,6 +85,5 @@
                 
     </string-array>
 
-    <string name="title_activity_rref">RREF</string>
 
 </resources>

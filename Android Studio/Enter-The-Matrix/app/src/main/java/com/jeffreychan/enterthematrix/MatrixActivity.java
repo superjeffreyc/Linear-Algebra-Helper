@@ -28,9 +28,8 @@ import android.widget.Toast;
 
 public class MatrixActivity extends Activity implements OnClickListener {
 
-	Button reduceButton, saveA, saveB, saveC, saveD, saveE, saveScalar;
-	private int rows, columns, width, height;
-	private double[][] matrix;
+	Button reduceButton, saveA, saveB, saveC, saveD, saveE;
+	private int rows, columns, height;
 	EditText[][] myEditTextArray;
 	String loadMatrix;
 	String[] splitMatrix = null;
@@ -63,7 +62,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		width = size.x;
+		int width = size.x;
 		height = size.y;
 		
 		saveButtonWidth = width/5;
@@ -110,52 +109,52 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		
 		// Create reduce and save buttons
 		reduceButton = new Button(this);
-		reduceButton.setText("Reduce");
-		reduceButton.setId(0);
+		reduceButton.setText(R.string.reduce);
+		reduceButton.setId(R.id.reduceButton);
 		reduceButton.setLayoutParams(new LayoutParams(width/3, LayoutParams.WRAP_CONTENT));
 		reduceButton.setX(width/2 - ((width/3)/2));
 		reduceButton.setY(rows * height/(rows+2));
 		reduceButton.setOnClickListener(this);
 		
 		saveA = new Button(this);
-		saveA.setText("Save to A");
+		saveA.setText(R.string.saveA);
 		saveA.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveA.setX(0);
 		saveA.setY(4*height/5);
 		saveA.setOnClickListener(this);
-		saveA.setId(1);
+		saveA.setId(R.id.saveToA);
 				
 		saveB = new Button(this);
-		saveB.setText("Save to B");
+		saveB.setText(R.string.saveB);
 		saveB.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveB.setX(width/5);
 		saveB.setY(4*height/5);
 		saveB.setOnClickListener(this);
-		saveB.setId(2);
+		saveB.setId(R.id.saveToB);
 		
 		saveC = new Button(this);
-		saveC.setText("Save to C");
+		saveC.setText(R.string.saveC);
 		saveC.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveC.setX(2*width/5);
 		saveC.setY(4*height/5);
 		saveC.setOnClickListener(this);
-		saveC.setId(3);
+		saveC.setId(R.id.saveToC);
 		
 		saveD = new Button(this);
-		saveD.setText("Save to D");
+		saveD.setText(R.string.saveD);
 		saveD.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveD.setX(3*width/5);
 		saveD.setY(4*height/5);
 		saveD.setOnClickListener(this);
-		saveD.setId(4);
+		saveD.setId(R.id.saveToD);
 		
 		saveE = new Button(this);
-		saveE.setText("Save to E");
+		saveE.setText(R.string.saveE);
 		saveE.setLayoutParams(new LayoutParams(saveButtonWidth, LayoutParams.WRAP_CONTENT));
 		saveE.setX(4*width/5);
 		saveE.setY(4*height/5);
 		saveE.setOnClickListener(this);
-		saveE.setId(5);
+		saveE.setId(R.id.saveToE);
 
 		
 		// Add the buttons to the relative layout
@@ -320,7 +319,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		editor.putString(letter, matrixString);
 		editor.putInt(rowName, rows);
 		editor.putInt(columnName, columns);
-		editor.commit();
+		editor.apply();
 		
 		Toast savedToast = Toast.makeText(getApplicationContext(), "Saved as Matrix " + letter + "!", Toast.LENGTH_SHORT);
     	savedToast.show();
@@ -331,10 +330,8 @@ public class MatrixActivity extends Activity implements OnClickListener {
 
 		if (v.getId() == reduceButton.getId()){
 			
-			matrix = new double[rows][columns]; // Set up the matrix
-
 			// Grab the entries from the edit texts
-			matrix = editTextToMatrix(rows, columns);
+			double[][] matrix = editTextToMatrix(rows, columns);
 
 			double[][] resultMatrix = MatrixOperations.reduceMatrix(rows, columns, matrix);
 			String matrixString = MatrixOperations.matrixToString(rows, columns, resultMatrix);

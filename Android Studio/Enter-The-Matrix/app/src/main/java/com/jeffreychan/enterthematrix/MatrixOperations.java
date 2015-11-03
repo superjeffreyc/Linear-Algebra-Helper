@@ -14,44 +14,47 @@ public class MatrixOperations {
 			for (int j = 0; j < columns; j++){
 				if (matrix[i][j] == 0){
 					// If the element is 0, append 0
-					sb.append("0,");
+					sb.append("0");
 				}
 				else if (Math.abs(matrix[i][j]) % 1 < 1E-6) {		
 					// If the remainder is nearly 0, remove the decimal places and append
-					sb.append((int) matrix[i][j] + ",");
+					sb.append((int) matrix[i][j]);
+					sb.append(",");
 				}
 				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] > 0) {
 					// If the element is positive and remainder is nearly 1, round up and append
-					sb.append((int) Math.ceil(matrix[i][j]) + ",");
+					sb.append((int) Math.ceil(matrix[i][j]));
 				}
 				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] < 0) {
 					// If the element is negative and remainder is nearly 1, round down and append
-					sb.append((int) Math.floor(matrix[i][j]) + ",");
+					sb.append((int) Math.floor(matrix[i][j]));
 				}
 				else{
 					// The element is not a whole number
 	
 					boolean done = false;
 					double n = 2.0;
-					final int MAX_DENOM = 10000;
+					final int MAX_DENOMINATOR = 10000;
 					
-					// Finds possible denominators up to MAX_DENOM and append the appropriate fraction
-					while (!done && n <= MAX_DENOM) {
+					// Finds possible denominators up to MAX_DENOMINATOR and append the appropriate fraction
+					while (!done && n <= MAX_DENOMINATOR) {
 						if ( (Math.abs(matrix[i][j]) / (1.0/n) )  % 1 < 1E-6 || (Math.abs(matrix[i][j]) / (1.0/n) ) % 1 > 0.999999)  {
 							done = true;
-							sb.append( (int) (Math.round(matrix[i][j] / (1.0/n)))  + "/" + (int) n + ",");
+							sb.append( (int) (Math.round(matrix[i][j] / (1.0/n))));
+							sb.append("/");
+							sb.append((int) n);
 						}
-	
+
 						n++;
 					}
 	
 					// If a denominator cannot be found, just round the number to two decimal places
 					if (!done) {
 						DecimalFormat df = new DecimalFormat("#.00");
-						sb.append(df.format(matrix[i][j]) + ",");
+						sb.append(df.format(matrix[i][j]));
 					}
 				}
-	
+				sb.append(",");
 	
 			}
 	
@@ -64,20 +67,11 @@ public class MatrixOperations {
 
 		double[][] matrix = new double[rows][columns];
 		for (int i = 0; i < rows; i++){
-			for (int j = 0; j < columns; j++){
-				matrix[i][j] = matrixA[i][j];
-			}
+			System.arraycopy(matrixA[i], 0, matrix[i], 0, matrix[0].length);
 		}
 		
 		// Check for zero matrix
-		boolean isAllZero = true;			
-		for (int i = 0; i < rows; i++){
-			for (int j = 0; j < columns; j++){
-				if (matrix[i][j] != 0){
-					isAllZero = false;
-				}
-			}
-		}
+		boolean isAllZero = isZeroMatrix(rows, columns, matrix);
 
 		if (!isAllZero){
 
@@ -220,19 +214,18 @@ public class MatrixOperations {
 		return matrixC;
 	}
 	
-	public static double[][] invertMatrix(double[][] matrixA){
-		return matrixA;
-		// TODO
-	}
-	
-	public static double[][] calculateNullSpace(double[][] matrixA){
-		return matrixA;
-		// TODO
-	}
+//	public static double[][] invertMatrix(double[][] matrixA){
+//		return matrixA;
+//		// TODO
+//	}
+//
+//	public static double[][] calculateNullSpace(double[][] matrixA){
+//		return matrixA;
+//		// TODO
+//	}
 	
 	public static double[][] calculateColumnSpace(int resultRow, int resultColumn, double[][] matrixA){
-		double[][] tempMatrix = new double[resultRow][resultColumn];
-		tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
+		double[][] tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
 		
 		int[] pivotColumns = new int[resultColumn];
 		int col = 0;
@@ -290,5 +283,18 @@ public class MatrixOperations {
 		}
 		
 		return resultMatrix;
+	}
+
+	public static boolean isZeroMatrix(int rows, int columns, double[][] matrixA){
+		boolean isZero = true;
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				if (matrixA[i][j] != 0){
+					isZero = false;
+				}
+			}
+		}
+
+		return isZero;
 	}
 }

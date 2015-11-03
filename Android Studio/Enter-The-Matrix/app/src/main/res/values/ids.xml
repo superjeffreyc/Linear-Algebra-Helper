@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="reduceButton" type="id"/>
+    <item name="saveToA" type="id"/>
+    <item name="saveToB" type="id"/>
+    <item name="saveToC" type="id"/>
+    <item name="saveToD" type="id"/>
+    <item name="saveToE" type="id"/>
+
+    <item name="matrixA" type="id"/>
+    <item name="matrixB" type="id"/>
+    <item name="matrixC" type="id"/>
+    <item name="matrixD" type="id"/>
+    <item name="matrixE" type="id"/>
+    <item name="scalar" type="id"/>
+    <item name="createButton" type="id"/>
+    <item name="calculateButton" type="id"/>
+    <item name="rowMenu" type="id"/>
+    <item name="columnMenu" type="id"/>
+    <item name="firstMatrix" type="id"/>
+    <item name="operator" type="id"/>
+    <item name="secondMatrix" type="id"/>
+
+
+</resources>
