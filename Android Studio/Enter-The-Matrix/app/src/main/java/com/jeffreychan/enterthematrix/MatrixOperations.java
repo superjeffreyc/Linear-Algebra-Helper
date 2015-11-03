@@ -19,7 +19,6 @@ public class MatrixOperations {
 				else if (Math.abs(matrix[i][j]) % 1 < 1E-6) {		
 					// If the remainder is nearly 0, remove the decimal places and append
 					sb.append((int) matrix[i][j]);
-					sb.append(",");
 				}
 				else if (Math.abs(matrix[i][j]) % 1 > 0.999999 && matrix[i][j] > 0) {
 					// If the element is positive and remainder is nearly 1, round up and append
@@ -219,10 +218,59 @@ public class MatrixOperations {
 //		// TODO
 //	}
 //
-//	public static double[][] calculateNullSpace(double[][] matrixA){
-//		return matrixA;
-//		// TODO
-//	}
+
+	public static double[][] calculateNullSpace(int resultRow, int resultColumn, double[][] matrixA){
+		double[][] tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);
+
+		int[] nonPivotColumns = new int[resultColumn];
+		int col = 0;
+
+		for (int j = 0; j < resultColumn; j++){
+			int pivotCounter = 0;
+			for (int i = 0; i < resultRow; i++){
+				if (tempMatrix[i][j] == 1){
+					pivotCounter++;
+				}
+			}
+			if (pivotCounter != 1){
+				nonPivotColumns[col] = j;
+				col++;
+			}
+		}
+
+		double[][] resultMatrix;
+
+		if (col > 0) {
+			resultColumn = col;
+			resultMatrix = new double[resultRow][resultColumn];
+
+			for (int i = 0; i < resultRow; i++) {
+				int k = 0;
+				for (int j : nonPivotColumns) {
+					if (k < col) {
+						if (i != j) {
+							resultMatrix[i][k] = -tempMatrix[i][j];
+						} else {
+							resultMatrix[i][k] = 1;
+						}
+
+						k++;
+					}
+				}
+
+			}
+		}
+		else {
+			resultMatrix = new double[resultRow][resultColumn];
+			for (int i = 0; i < resultRow; i++){
+				for (int j = 0; j < resultColumn; j++){
+					resultMatrix[i][j] = 0;
+				}
+			}
+		}
+		return resultMatrix;
+
+	}
 	
 	public static double[][] calculateColumnSpace(int resultRow, int resultColumn, double[][] matrixA){
 		double[][] tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);

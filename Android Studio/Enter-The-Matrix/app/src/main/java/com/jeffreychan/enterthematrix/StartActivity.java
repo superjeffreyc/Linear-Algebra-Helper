@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -43,6 +42,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	int saveButtonWidths;
 	final int NUM_MATRICES = 5;
 	float scalar = 1f;
+	StringBuilder matrix = new StringBuilder();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -283,33 +283,39 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		}
 		
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
-		Resources res = getResources();
 		int displayRowA = prefs.getInt("rowA", 0); //0 is the default value
 		int displayColumnA = prefs.getInt("columnA", 0); //0 is the default value
-		matrixA.setText(res.getString(R.string.matrixA_dim, displayRowA, displayColumnA));
+		String matrixA_display = "Matrix A (" + displayRowA + "x" + displayColumnA + ")";
+		matrixA.setText(matrixA_display);
 
 		int displayRowB = prefs.getInt("rowB", 0); //0 is the default value
 		int displayColumnB = prefs.getInt("columnB", 0); //0 is the default value
-		matrixB.setText(res.getString(R.string.matrixB_dim, displayRowB, displayColumnB));
+		String matrixB_display = "Matrix B (" + displayRowB + "x" + displayColumnB + ")";
+		matrixB.setText(matrixB_display);
 
 		int displayRowC = prefs.getInt("rowC", 0); //0 is the default value
 		int displayColumnC = prefs.getInt("columnC", 0); //0 is the default value
-		matrixC.setText(res.getString(R.string.matrixC_dim, displayRowC, displayColumnC));
-		
+		String matrixC_display = "Matrix C (" + displayRowC + "x" + displayColumnC + ")";
+		matrixC.setText(matrixC_display);
+
 		int displayRowD = prefs.getInt("rowD", 0); //0 is the default value
 		int displayColumnD = prefs.getInt("columnD", 0); //0 is the default value
-		matrixD.setText(res.getString(R.string.matrixD_dim, displayRowD, displayColumnD));
-		
+		String matrixD_display = "Matrix D (" + displayRowD + "x" + displayColumnD + ")";
+		matrixD.setText(matrixD_display);
+
 		int displayRowE = prefs.getInt("rowE", 0); //0 is the default value
 		int displayColumnE = prefs.getInt("columnE", 0); //0 is the default value
-		matrixE.setText(res.getString(R.string.matrixE_dim, displayRowE, displayColumnE));
-		
+		String matrixE_display = "Matrix E (" + displayRowE + "x" + displayColumnE + ")";
+		matrixE.setText(matrixE_display);
+
 		float displayScalar = prefs.getFloat("scalar", 1f); //0 is the default value
 		if (Math.abs(displayScalar % 1) < 1E-6){
-			scalarButton.setText("c = " + (int) displayScalar);
+			String scalar_int_display = "c = " + (int) displayScalar;
+			scalarButton.setText(scalar_int_display);
 		}
 		else {
-			scalarButton.setText("c = " + displayScalar);
+			String scalar_float_display = "c = " + displayScalar;
+			scalarButton.setText(scalar_float_display);
 		}
 	}
 	
@@ -411,8 +417,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	    	
 	    	// Start new activity with blank matrix
 
-	    	StringBuilder matrix = new StringBuilder();
-	    	
+			matrix.delete(0, matrix.length());
+
 	    	for (int i = 0; i < row; i++){
 		    	for (int j = 0; j < column; j++){
 		    		matrix.append("0,");
@@ -609,18 +615,60 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 			// Basis for null space
 			else if (op == 6){
-				resultMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrices[first]);
-				// TODO: Determine free variables and get bases
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+				else {
+					resultMatrix = MatrixOperations.calculateNullSpace(resultRow, resultColumn, matrices[first]);
+				}
+
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
 			}
 			
 			// Bases for column space
 			else if (op == 7){
-				resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[first]);
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+				else {
+					resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[first]);
+				}
+
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
 			}
 			
 			// Bases for row space
 			else if (op == 8){
-				resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[first]);
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+				else {
+					resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[first]);
+				}
+
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+			}
+
+			else {
+				resultMatrix = new double[resultRow][resultColumn];
 			}
 			
 			// If there is no problem with the dimensions, display the calculation in a new activity

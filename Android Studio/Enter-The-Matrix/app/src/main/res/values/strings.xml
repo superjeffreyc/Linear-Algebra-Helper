@@ -32,13 +32,6 @@
     <string name="create">Create</string>
     <string name="calculate">Calculate</string>
 
-    <string name="matrixA_dim">"Matrix A (%1$ix%2$i)"</string>
-    <string name="matrixB_dim">"Matrix B (%1$ix%2$i)"</string>
-    <string name="matrixC_dim">"Matrix C (%1$ix%2$i)"</string>
-    <string name="matrixD_dim">"Matrix D (%1$ix%2$i)"</string>
-    <string name="matrixE_dim">"Matrix E (%1$ix%2$i)"</string>
-
-
     <string-array name="rowArray">
         <item>" 1 Row "</item>
         <item>" 2 Rows"</item>

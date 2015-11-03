@@ -40,25 +40,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
-              <folding>
-                <element signature="e#902#920#0" expanded="true" />
-                <element signature="e#1031#1049#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MatrixActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="243" column="45" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+              <caret line="335" column="26" selection-start-line="335" selection-start-column="23" selection-end-line="335" selection-end-column="26" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DisplayActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/DisplayActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="147" column="76" selection-start-line="147" selection-start-column="73" selection-end-line="147" selection-end-column="76" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="221" column="34" selection-start-line="221" selection-start-column="34" selection-end-line="221" selection-end-column="34" />
+              <caret line="335" column="26" selection-start-line="335" selection-start-column="26" selection-end-line="335" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -76,27 +75,10 @@
       <file leaf-file-name="StartActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/StartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54299754">
-              <caret line="584" column="120" selection-start-line="584" selection-start-column="120" selection-end-line="584" selection-end-column="120" />
+            <state vertical-scroll-proportion="0.56621003">
+              <caret line="626" column="32" selection-start-line="626" selection-start-column="32" selection-end-line="626" selection-end-column="32" />
               <folding>
-                <element signature="e#2740#2761#0" expanded="true" />
-                <element signature="e#2974#2993#0" expanded="true" />
-                <element signature="e#3241#3265#0" expanded="true" />
-                <element signature="e#5794#5809#0" expanded="true" />
-                <element signature="e#6087#6105#0" expanded="true" />
-                <element signature="e#6382#6398#0" expanded="true" />
-                <element signature="e#6614#6630#0" expanded="true" />
-                <element signature="e#6827#6843#0" expanded="true" />
-                <element signature="e#7059#7075#0" expanded="true" />
-                <element signature="e#7272#7288#0" expanded="true" />
-                <element signature="e#7514#7529#0" expanded="true" />
-                <element signature="e#11270#11334#0" expanded="true" />
-                <element signature="e#11502#11566#0" expanded="true" />
-                <element signature="e#11734#11798#0" expanded="true" />
-                <element signature="e#11968#12032#0" expanded="true" />
-                <element signature="e#12202#12266#0" expanded="true" />
-                <element signature="e#12578#12579#0" expanded="true" />
-                <element signature="e#12596#12597#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,8 +87,8 @@
       <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.888889">
-              <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -1559,13 +1541,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/DisplayActivity.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/DisplayActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/StartActivity.java" />
       </list>
     </option>
@@ -1608,8 +1590,10 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1627,73 +1611,13 @@
               <option name="myItemId" value="Enter-The-Matrix" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Enter-The-Matrix" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Enter-The-Matrix" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="enterthematrix" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Enter-The-Matrix" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
@@ -1705,7 +1629,7 @@
     <property name="last_opened_file_path" value="$USER_HOME$/Dropbox/Random Files" />
     <property name="ExportApk.ApkPath" value="C:\Users\JeffreyChan\Dropbox\Random Files" />
     <property name="ExportApk.Flavors" value="" />
-    <property name="ExportApk.BuildType" value="release" />
+    <property name="ExportApk.BuildType" value="debug" />
     <property name="restartRequiresConfirmation" value="true" />
   </component>
   <component name="RecentsManager">
@@ -2003,7 +1927,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3409091" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3380682" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33664772" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2041,14 +1965,113 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="335" column="26" selection-start-line="335" selection-start-column="23" selection-end-line="335" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/DisplayActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="147" column="76" selection-start-line="147" selection-start-column="73" selection-end-line="147" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/StartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="632" column="12" selection-start-line="632" selection-start-column="12" selection-end-line="632" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/ids.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="243" column="45" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="221" column="34" selection-start-line="221" selection-start-column="34" selection-end-line="221" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/StartActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/ids.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2073,24 +2096,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="217" column="13" selection-start-line="217" selection-start-column="13" selection-end-line="217" selection-end-column="13" />
           <folding>
-            <element signature="e#2740#2761#0" expanded="true" />
-            <element signature="e#2974#2993#0" expanded="true" />
-            <element signature="e#3241#3265#0" expanded="true" />
-            <element signature="e#5794#5809#0" expanded="true" />
-            <element signature="e#6087#6105#0" expanded="true" />
-            <element signature="e#6382#6398#0" expanded="true" />
-            <element signature="e#6614#6630#0" expanded="true" />
-            <element signature="e#6827#6843#0" expanded="true" />
-            <element signature="e#7059#7075#0" expanded="true" />
-            <element signature="e#7272#7288#0" expanded="true" />
-            <element signature="e#7514#7529#0" expanded="true" />
-            <element signature="e#11270#11334#0" expanded="true" />
-            <element signature="e#11502#11566#0" expanded="true" />
-            <element signature="e#11734#11798#0" expanded="true" />
-            <element signature="e#11968#12032#0" expanded="true" />
-            <element signature="e#12202#12266#0" expanded="true" />
-            <element signature="e#12578#12579#0" expanded="true" />
-            <element signature="e#12596#12597#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2115,10 +2121,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2143,24 +2146,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2740#2761#0" expanded="true" />
-            <element signature="e#2974#2993#0" expanded="true" />
-            <element signature="e#3241#3265#0" expanded="true" />
-            <element signature="e#5794#5809#0" expanded="true" />
-            <element signature="e#6087#6105#0" expanded="true" />
-            <element signature="e#6382#6398#0" expanded="true" />
-            <element signature="e#6614#6630#0" expanded="true" />
-            <element signature="e#6827#6843#0" expanded="true" />
-            <element signature="e#7059#7075#0" expanded="true" />
-            <element signature="e#7272#7288#0" expanded="true" />
-            <element signature="e#7514#7529#0" expanded="true" />
-            <element signature="e#11270#11334#0" expanded="true" />
-            <element signature="e#11502#11566#0" expanded="true" />
-            <element signature="e#11734#11798#0" expanded="true" />
-            <element signature="e#11968#12032#0" expanded="true" />
-            <element signature="e#12202#12266#0" expanded="true" />
-            <element signature="e#12578#12579#0" expanded="true" />
-            <element signature="e#12596#12597#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2169,10 +2155,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2197,24 +2180,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#2740#2761#0" expanded="true" />
-            <element signature="e#2974#2993#0" expanded="true" />
-            <element signature="e#3241#3265#0" expanded="true" />
-            <element signature="e#5794#5809#0" expanded="true" />
-            <element signature="e#6087#6105#0" expanded="true" />
-            <element signature="e#6382#6398#0" expanded="true" />
-            <element signature="e#6614#6630#0" expanded="true" />
-            <element signature="e#6827#6843#0" expanded="true" />
-            <element signature="e#7059#7075#0" expanded="true" />
-            <element signature="e#7272#7288#0" expanded="true" />
-            <element signature="e#7514#7529#0" expanded="true" />
-            <element signature="e#11270#11334#0" expanded="true" />
-            <element signature="e#11502#11566#0" expanded="true" />
-            <element signature="e#11734#11798#0" expanded="true" />
-            <element signature="e#11968#12032#0" expanded="true" />
-            <element signature="e#12202#12266#0" expanded="true" />
-            <element signature="e#12578#12579#0" expanded="true" />
-            <element signature="e#12596#12597#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2223,10 +2189,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2251,24 +2214,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="528" column="0" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
           <folding>
-            <element signature="e#2740#2761#0" expanded="true" />
-            <element signature="e#2974#2993#0" expanded="true" />
-            <element signature="e#3241#3265#0" expanded="true" />
-            <element signature="e#5794#5809#0" expanded="true" />
-            <element signature="e#6087#6105#0" expanded="true" />
-            <element signature="e#6382#6398#0" expanded="true" />
-            <element signature="e#6614#6630#0" expanded="true" />
-            <element signature="e#6827#6843#0" expanded="true" />
-            <element signature="e#7059#7075#0" expanded="true" />
-            <element signature="e#7272#7288#0" expanded="true" />
-            <element signature="e#7514#7529#0" expanded="true" />
-            <element signature="e#11270#11334#0" expanded="true" />
-            <element signature="e#11502#11566#0" expanded="true" />
-            <element signature="e#11734#11798#0" expanded="true" />
-            <element signature="e#11968#12032#0" expanded="true" />
-            <element signature="e#12202#12266#0" expanded="true" />
-            <element signature="e#12578#12579#0" expanded="true" />
-            <element signature="e#12596#12597#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2277,10 +2223,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2295,17 +2238,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
-          <folding>
-            <element signature="e#902#920#0" expanded="true" />
-            <element signature="e#1031#1049#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="243" column="45" selection-start-line="243" selection-start-column="45" selection-end-line="243" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -2318,45 +2250,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="221" column="34" selection-start-line="221" selection-start-column="34" selection-end-line="221" selection-end-column="34" />
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixOperations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.888889">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="335" column="26" selection-start-line="335" selection-start-column="26" selection-end-line="335" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/DisplayActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="147" column="76" selection-start-line="147" selection-start-column="73" selection-end-line="147" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/MatrixActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="335" column="26" selection-start-line="335" selection-start-column="23" selection-end-line="335" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jeffreychan/enterthematrix/StartActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54299754">
-          <caret line="584" column="120" selection-start-line="584" selection-start-column="120" selection-end-line="584" selection-end-column="120" />
+        <state vertical-scroll-proportion="0.56621003">
+          <caret line="626" column="32" selection-start-line="626" selection-start-column="32" selection-end-line="626" selection-end-column="32" />
           <folding>
-            <element signature="e#2740#2761#0" expanded="true" />
-            <element signature="e#2974#2993#0" expanded="true" />
-            <element signature="e#3241#3265#0" expanded="true" />
-            <element signature="e#5794#5809#0" expanded="true" />
-            <element signature="e#6087#6105#0" expanded="true" />
-            <element signature="e#6382#6398#0" expanded="true" />
-            <element signature="e#6614#6630#0" expanded="true" />
-            <element signature="e#6827#6843#0" expanded="true" />
-            <element signature="e#7059#7075#0" expanded="true" />
-            <element signature="e#7272#7288#0" expanded="true" />
-            <element signature="e#7514#7529#0" expanded="true" />
-            <element signature="e#11270#11334#0" expanded="true" />
-            <element signature="e#11502#11566#0" expanded="true" />
-            <element signature="e#11734#11798#0" expanded="true" />
-            <element signature="e#11968#12032#0" expanded="true" />
-            <element signature="e#12202#12266#0" expanded="true" />
-            <element signature="e#12578#12579#0" expanded="true" />
-            <element signature="e#12596#12597#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
