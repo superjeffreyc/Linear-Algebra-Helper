@@ -1,5 +1,7 @@
 package com.jeffreychan.enterthematrix;
 
+import android.widget.Toast;
+
 import java.text.DecimalFormat;
 
 public class MatrixOperations {
@@ -213,11 +215,58 @@ public class MatrixOperations {
 		return matrixC;
 	}
 	
-//	public static double[][] invertMatrix(double[][] matrixA){
-//		return matrixA;
-//		// TODO
-//	}
-//
+	public static double[][] invertMatrix(int firstRow, int firstColumn, double[][] matrix){
+		boolean isInvertible = true;
+		double[][] resultMatrix = new double[firstRow][2*firstColumn];
+
+		// The first partition is the matrix to be inverted
+		for (int i = 0; i < matrix.length; i++){
+			System.arraycopy(matrix[i], 0, resultMatrix[i], 0, matrix[0].length);
+		}
+
+		// The second partition is the identity matrix
+		for (int i = 0; i < matrix.length; i++){
+			for (int j = matrix[0].length; j < 2*matrix.length; j++){
+				if (i == (j - matrix.length)){
+					resultMatrix[i][j] = 1;
+				}
+				else {
+					resultMatrix[i][j] = 0;
+				}
+			}
+		}
+
+		resultMatrix = MatrixOperations.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
+
+		// Check for the identity matrix in the first partition
+		for (int i = 0; i < matrix.length; i++){
+			for (int j = 0; j < matrix.length; j++){
+				if (i == j && resultMatrix[i][j] != 1){
+					isInvertible = false;
+				}
+			}
+		}
+
+		double[][] tempMatrix = new double[firstRow][firstColumn];
+
+		if (isInvertible){
+			// Grab the second partition and store it as resultMatrix
+			for (int i = 0; i < matrix.length; i++){
+				System.arraycopy(resultMatrix[i], firstColumn, tempMatrix[i], 0, matrix[0].length);
+			}
+		}
+		else {
+			for (int i = 0; i < firstRow; i++){
+				for (int j = 0; j < firstColumn; j++){
+					resultMatrix[i][j] = 0;
+				}
+			}
+
+		}
+
+		return tempMatrix;
+	}
+
 
 	public static double[][] calculateNullSpace(int resultRow, int resultColumn, double[][] matrixA){
 		double[][] tempMatrix = MatrixOperations.reduceMatrix(resultRow, resultColumn, matrixA);

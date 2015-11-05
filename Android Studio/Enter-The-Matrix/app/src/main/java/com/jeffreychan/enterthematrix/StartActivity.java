@@ -552,56 +552,16 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			else if (op == 4){
 				
 				if (firstRow == firstColumn){
-					boolean isInvertible = true;
-					resultMatrix = new double[firstRow][2*firstColumn];
-					
-					// The first partition is the matrix to be inverted
-					for (int i = 0; i < matrices[first].length; i++){
-						System.arraycopy(matrices[first][i], 0, resultMatrix[i], 0, matrices[first][0].length);
-					}
-					
-					// The second partition is the identity matrix
-					for (int i = 0; i < matrices[first].length; i++){
-						for (int j = matrices[first][0].length; j < 2*matrices[first][0].length; j++){
-							if (i == (j - matrices[first][0].length)){
-								resultMatrix[i][j] = 1;
-							}
-							else {
-								resultMatrix[i][j] = 0;
-							}
-						}
-					}
-					
-					resultMatrix = MatrixOperations.reduceMatrix(firstRow, 2*firstColumn, resultMatrix);
-					
-					// Check for the identity matrix in the first partition
-					for (int i = 0; i < matrices[first].length; i++){
-						for (int j = 0; j < matrices[first][0].length; j++){
-							if (i == j && resultMatrix[i][j] != 1){
-								isInvertible = false;
-							}
-						}
-					}
-					
-					if (isInvertible){
-						
-						// Grab the second partition and store it as resultMatrix
-						double[][] tempMatrix = new double[firstRow][firstColumn];
-						for (int i = 0; i < matrices[first].length; i++){
-							System.arraycopy(resultMatrix[i], firstColumn, tempMatrix[i], 0, matrices[first][0].length);
-						}
-						resultMatrix = tempMatrix;
-						
-					}
-					else {						
-						Toast message = Toast.makeText(getApplicationContext(), "This matrix is not invertible", Toast.LENGTH_SHORT);
-						message.show();
-						isReady = false;
-					}
-					
+					resultMatrix = MatrixOperations.invertMatrix(resultRow, resultColumn, matrices[first]);
 				}
 				else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+					Toast message = Toast.makeText(getApplicationContext(), "Matrix is not invertible", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
