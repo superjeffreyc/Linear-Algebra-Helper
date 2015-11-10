@@ -382,6 +382,20 @@ public class MatrixOperations {
 		return resultMatrix;
 	}
 
+	public static double calculateDeterminant(int resultRow, int resultColumn, double[][] matrixA){
+
+		double[][] tempMatrix = new double[resultRow][resultColumn];
+		double det = 0.0;
+
+		if (resultRow == 2){
+			det = matrixA[0][0]*matrixA[1][1] - matrixA[0][1]*matrixA[1][0];
+		}
+
+		// TODO: general algorithm for all matrices
+
+		return det;
+	}
+
 	public static boolean isZeroMatrix(int rows, int columns, double[][] matrixA){
 		boolean isZero = true;
 		for (int i = 0; i < rows; i++){

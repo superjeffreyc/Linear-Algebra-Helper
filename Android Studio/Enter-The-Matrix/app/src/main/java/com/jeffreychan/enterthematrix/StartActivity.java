@@ -486,7 +486,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	    else if (v.getId() == calculateButton.getId()){
 	    	boolean isReady = true;
 	    	double[][][] matrices = new double[NUM_MATRICES][][];
-	    	
+
 	    	// Load all four matrices	    	
 	    	String[] letters = {"A", "B", "C", "D", "E"};
 	    	for (String s : letters){
@@ -500,7 +500,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			
 			int resultRow = firstRow;
 			int resultColumn = firstColumn;
-			double[][] resultMatrix = null;
+			double[][] resultMatrix = new double[resultRow][resultColumn];
 
 			
 			// ---------------------------------------------------------
@@ -627,10 +627,37 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 				}
 			}
 
-			else {
-				resultMatrix = new double[resultRow][resultColumn];
+			// Determinant
+			else if (op == 9){
+				if (resultRow == resultColumn){
+					AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+					alert.setTitle("Edit Scalar Constant");
+					alert.setMessage("Enter a value for c:");
+
+					final TextView display = new TextView(this);
+					display.setGravity(Gravity.CENTER);
+					display.setPadding(0, 0, 0, 0);
+					display.setBackgroundColor(Color.WHITE);
+					String det = "" + MatrixOperations.calculateDeterminant(resultRow, resultColumn, matrices[first]);
+							display.setText(det);
+					alert.setView(display);
+
+					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+
+						}
+					});
+
+					alert.show();
+				}
+				else {
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate determinant.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
 			}
-			
+
 			// If there is no problem with the dimensions, display the calculation in a new activity
 			if (isReady){
 				resultRow = resultMatrix.length;
