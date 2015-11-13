@@ -1,7 +1,5 @@
 package com.jeffreychan.enterthematrix;
 
-import android.widget.Toast;
-
 import java.text.DecimalFormat;
 
 public class MatrixOperations {
@@ -384,14 +382,36 @@ public class MatrixOperations {
 
 	public static double calculateDeterminant(int resultRow, int resultColumn, double[][] matrixA){
 
-		double[][] tempMatrix = new double[resultRow][resultColumn];
 		double det = 0.0;
 
-		if (resultRow == 2){
+		if (resultRow == 1){
+			det = matrixA[0][0];
+		}
+		else if (resultRow == 2){
 			det = matrixA[0][0]*matrixA[1][1] - matrixA[0][1]*matrixA[1][0];
 		}
+		else {
+			for (int j = 0; j < resultRow; j++) {
 
-		// TODO: general algorithm for all matrices
+				double[][] matrixB = new double[resultRow - 1][resultColumn - 1];
+
+				int m = 0;
+				for (int i = 1; i < resultRow; i++){
+					int n = 0;
+					for (int k = 0; k < resultColumn; k++){
+
+						if (k != j) {
+							matrixB[m][n] = matrixA[i][k];
+							n++;
+						}
+
+
+					}
+					m++;
+				}
+				det = Math.pow(-1, 1 + j) * matrixA[1][j] * calculateDeterminant(resultRow - 1, resultColumn - 1, matrixB);
+			}
+		}
 
 		return det;
 	}
