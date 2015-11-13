@@ -409,7 +409,7 @@ public class MatrixOperations {
 					}
 					m++;
 				}
-				det = Math.pow(-1, 1 + j) * matrixA[1][j] * calculateDeterminant(resultRow - 1, resultColumn - 1, matrixB);
+				det += Math.pow(-1, 2 + j) * matrixA[0][j] * calculateDeterminant(resultRow - 1, resultColumn - 1, matrixB);
 			}
 		}
 

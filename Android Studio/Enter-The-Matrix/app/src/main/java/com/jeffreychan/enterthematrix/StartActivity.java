@@ -632,15 +632,15 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 				if (resultRow == resultColumn){
 					AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-					alert.setTitle("Edit Scalar Constant");
-					alert.setMessage("Enter a value for c:");
+					alert.setTitle("Determinant");
+					alert.setMessage("");
 
 					final TextView display = new TextView(this);
 					display.setGravity(Gravity.CENTER);
 					display.setPadding(0, 0, 0, 0);
 					display.setBackgroundColor(Color.WHITE);
 					String det = "" + MatrixOperations.calculateDeterminant(resultRow, resultColumn, matrices[first]);
-							display.setText(det);
+					display.setText(det);
 					alert.setView(display);
 
 					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -650,6 +650,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 					});
 
 					alert.show();
+					isReady = false;
 				}
 				else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate determinant.", Toast.LENGTH_SHORT);

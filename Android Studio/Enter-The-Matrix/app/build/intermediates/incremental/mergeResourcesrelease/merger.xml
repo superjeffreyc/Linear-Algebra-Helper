@@ -1026,6 +1026,7 @@
         <item>"Null Sp"</item>
         <item>"Col Sp"</item>
         <item>"Row Sp"</item>
+        <item>"det"</item>
                 
     </string-array><string name="app_name">Linear Algebra Helper</string><string name="saveE">Save to E</string><string name="title_activity_start">StartActivity</string><string name="saveB">Save to B</string><string name="createMatrix"> Create new matrix:</string><string name="saveA">Save to A</string><string name="ClearAll">Clear All Entries</string><string name="calculate">Calculate</string><string-array name="rowArray">
         <item>" 1 Row "</item>
