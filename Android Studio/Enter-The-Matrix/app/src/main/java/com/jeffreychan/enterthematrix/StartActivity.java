@@ -641,6 +641,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 					display.setBackgroundColor(Color.WHITE);
 					String det = "" + MatrixOperations.calculateDeterminant(resultRow, resultColumn, matrices[first]);
 					display.setText(det);
+					display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+					display.setTextSize(30f);
 					alert.setView(display);
 
 					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -657,6 +659,41 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 					message.show();
 					isReady = false;
 				}
+			}
+
+			// Eigenvalues
+			else if (op == 10){
+				if (resultRow == resultColumn){
+					AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+					alert.setTitle("Determinant");
+					alert.setMessage("");
+
+					final TextView display = new TextView(this);
+					display.setGravity(Gravity.CENTER);
+					display.setPadding(0, 0, 0, 0);
+					display.setBackgroundColor(Color.WHITE);
+					String det = "" + MatrixOperations.calculateEigenvalues(resultRow, resultColumn, matrices[first]);
+					display.setText(det);
+					display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+					display.setTextSize(30f);
+					alert.setView(display);
+
+					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+
+						}
+					});
+
+					alert.show();
+					isReady = false;
+				}
+				else {
+					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate eigenvalues.", Toast.LENGTH_SHORT);
+					message.show();
+					isReady = false;
+				}
+
 			}
 
 			// If there is no problem with the dimensions, display the calculation in a new activity

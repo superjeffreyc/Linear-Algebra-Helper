@@ -416,6 +416,13 @@ public class MatrixOperations {
 		return det;
 	}
 
+	public static String calculateEigenvalues(int resultRow, int resultColumn, double[][] matrixA){
+
+		// TODO: eigenvalues
+
+		return "0";
+	}
+
 	public static boolean isZeroMatrix(int rows, int columns, double[][] matrixA){
 		boolean isZero = true;
 		for (int i = 0; i < rows; i++){
