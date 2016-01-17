@@ -43,50 +43,50 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	final int NUM_MATRICES = 5;
 	float scalar = 1f;
 	StringBuilder matrix = new StringBuilder();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_start);
 		getWindow().getDecorView().setBackgroundColor(Color.rgb(34, 177, 76));
-		
+
 		// Get dimensions of screen and set up display variables
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
 		width = size.x;
-		height = size.y;		
-		startHeight = height/50;
-		viewHeights = height/13;
-		
-		saveButtonWidths = width/2;
-		
+		height = size.y;
+		startHeight = height / 50;
+		viewHeights = height / 13;
+
+		saveButtonWidths = width / 2;
+
 		// ---------------------------------------------
 		// Define all the views
 		// ---------------------------------------------
 		mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-		
+
 		createTextView = new TextView(this);
 		createTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, viewHeights));
 		createTextView.setX(0);
 		createTextView.setY(startHeight);
 		createTextView.setTextSize(30f);
 		createTextView.setText(R.string.createMatrix);
-		
+
 		editTextView = new TextView(this);
 		editTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, viewHeights));
 		editTextView.setX(0);
 		editTextView.setTextSize(30f);
 		editTextView.setText(R.string.editMatrix);
-		
+
 		calculationTextView = new TextView(this);
 		calculationTextView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, viewHeights));
 		calculationTextView.setX(0);
 		calculationTextView.setTextSize(30f);
 		calculationTextView.setText(R.string.calculateMatrix);
-		
+
 		rowMenu = new Spinner(this);
 		rowMenu.setId(R.id.rowMenu);
 		rowMenu.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, viewHeights));
@@ -106,7 +106,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		columnMenu.setAdapter(columnAdapter);
 		columnMenu.setOnItemSelectedListener(this);
 		columnMenu.setSelection(2);
-		
+
 		firstMatrix = new Spinner(this);
 		firstMatrix.setId(R.id.firstMatrix);
 		firstMatrix.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
@@ -116,7 +116,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		firstMatrix.setAdapter(firstAdapter);
 		firstMatrix.setOnItemSelectedListener(this);
 		firstMatrix.setSelection(0);
-				
+
 		operator = new Spinner(this);
 		operator.setId(R.id.operator);
 		operator.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
@@ -143,53 +143,53 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		createButton.setLayoutParams(new LayoutParams(width / 3, viewHeights));
 		createButton.setX(width / 2 - ((width / 3) / 2));
 		createButton.setOnClickListener(this);
-		
+
 		calculateButton = new Button(this);
 		calculateButton.setText(R.string.calculate);
 		calculateButton.setId(R.id.calculateButton);
 		calculateButton.setLayoutParams(new LayoutParams(width / 3, viewHeights));
 		calculateButton.setX(width / 2 - ((width / 3) / 2));
 		calculateButton.setOnClickListener(this);
-		
+
 		matrixA = new Button(this);
 		matrixA.setText(R.string.matrixA);
 		matrixA.setId(R.id.matrixA);
 		matrixA.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		matrixA.setX(0);
 		matrixA.setOnClickListener(this);
-		
+
 		matrixB = new Button(this);
 		matrixB.setText(R.string.matrixB);
 		matrixB.setId(R.id.matrixB);
 		matrixB.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		matrixB.setOnClickListener(this);
-		
+
 		matrixC = new Button(this);
 		matrixC.setText(R.string.matrixC);
 		matrixC.setId(R.id.matrixC);
 		matrixC.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		matrixC.setX(0);
 		matrixC.setOnClickListener(this);
-		
+
 		matrixD = new Button(this);
 		matrixD.setText(R.string.matrixD);
 		matrixD.setId(R.id.matrixD);
 		matrixD.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		matrixD.setOnClickListener(this);
-		
+
 		matrixE = new Button(this);
 		matrixE.setText(R.string.matrixE);
 		matrixE.setId(R.id.matrixE);
 		matrixA.setX(0);
 		matrixE.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		matrixE.setOnClickListener(this);
-		
+
 		scalarButton = new Button(this);
 		scalarButton.setText(R.string.scalar);
 		scalarButton.setId(R.id.scalar);
 		scalarButton.setLayoutParams(new LayoutParams(saveButtonWidths, viewHeights));
 		scalarButton.setOnClickListener(this);
-		
+
 		// Add these views to the relative layout
 		mainLayout.addView(rowMenu);
 		mainLayout.addView(columnMenu);
@@ -207,42 +207,42 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		mainLayout.addView(scalarButton);
 		mainLayout.addView(calculationTextView);
 		mainLayout.addView(calculateButton);
-		
+
 		// ------------------------------------------------------------------------------------------
 		// If stored matrices are empty (fresh install), then fill them with 3x3 zero matrices
 		// ------------------------------------------------------------------------------------------
 		StringBuilder sb = new StringBuilder();
-    	
-    	for (int i = 0; i < NUM_MATRICES - 1; i++){
-	    	for (int j = 0; j < NUM_MATRICES - 1; j++){
-	    		sb.append("0,");
-	    	}
-    	}
-    	
+
+		for (int i = 0; i < NUM_MATRICES - 1; i++) {
+			for (int j = 0; j < NUM_MATRICES - 1; j++) {
+				sb.append("0,");
+			}
+		}
+
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
 
-		if (prefs.getString("A", null) == null){
+		if (prefs.getString("A", null) == null) {
 			editor.putString("A", sb.toString());
 			editor.putInt("rowA", 3);
 			editor.putInt("columnA", 3);
 		}
-		if (prefs.getString("B", null) == null){
+		if (prefs.getString("B", null) == null) {
 			editor.putString("B", sb.toString());
 			editor.putInt("rowB", 3);
 			editor.putInt("columnB", 3);
 		}
-		if (prefs.getString("C", null) == null){
+		if (prefs.getString("C", null) == null) {
 			editor.putString("C", sb.toString());
 			editor.putInt("rowC", 3);
 			editor.putInt("columnC", 3);
 		}
-		if (prefs.getString("D", null) == null){
+		if (prefs.getString("D", null) == null) {
 			editor.putString("D", sb.toString());
 			editor.putInt("rowD", 3);
 			editor.putInt("columnD", 3);
 		}
-		if (prefs.getString("E", null) == null){
+		if (prefs.getString("E", null) == null) {
 			editor.putString("E", sb.toString());
 			editor.putInt("rowE", 3);
 			editor.putInt("columnE", 3);
@@ -253,11 +253,11 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		if (isStarting){
+		if (isStarting) {
 			rowMenu.setY(startHeight + createTextView.getHeight() + 5);
-			columnMenu.setY(rowMenu.getY() + rowMenu.getHeight() + 5);	
+			columnMenu.setY(rowMenu.getY() + rowMenu.getHeight() + 5);
 			createButton.setY(columnMenu.getY() + columnMenu.getHeight() + 5);
-			
+
 			editTextView.setY(createButton.getY() + createButton.getHeight() + 10);
 
 			matrixB.setX(matrixA.getWidth());
@@ -272,16 +272,16 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			scalarButton.setY(matrixD.getY() + matrixD.getHeight() + 5);
 
 			calculationTextView.setY(matrixE.getY() + matrixE.getHeight() + 10);
-			
+
 			firstMatrix.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
 			operator.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
 			secondMatrix.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
 
-			calculateButton.setY(height - 3*calculateButton.getHeight()/2);
+			calculateButton.setY(height - 3 * calculateButton.getHeight() / 2);
 
 			isStarting = false;
 		}
-		
+
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		int displayRowA = prefs.getInt("rowA", 0); //0 is the default value
 		int displayColumnA = prefs.getInt("columnA", 0); //0 is the default value
@@ -309,16 +309,15 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		matrixE.setText(matrixE_display);
 
 		float displayScalar = prefs.getFloat("scalar", 1f); //0 is the default value
-		if (Math.abs(displayScalar % 1) < 1E-6){
+		if (Math.abs(displayScalar % 1) < 1E-6) {
 			String scalar_int_display = "c = " + (int) displayScalar;
 			scalarButton.setText(scalar_int_display);
-		}
-		else {
+		} else {
 			String scalar_float_display = "c = " + displayScalar;
 			scalarButton.setText(scalar_float_display);
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
@@ -329,7 +328,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void startNewMatrixActivity(String letter){
+	private void startNewMatrixActivity(String letter) {
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
 
@@ -339,180 +338,170 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		int storedColumns = prefs.getInt(columnName, 0); //0 is the default value
 		Intent intent = new Intent(this, MatrixActivity.class);
 		Bundle bundle = new Bundle();
-		bundle.putInt("row", storedRows); 
-		bundle.putInt("column", storedColumns); 
+		bundle.putInt("row", storedRows);
+		bundle.putInt("column", storedColumns);
 		bundle.putString("loadMatrix", storedMatrix);
-		intent.putExtras(bundle); 
+		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-	
-	private void parseMatrices(double[][][] matrices, String letter){
+
+	private void parseMatrices(double[][][] matrices, String letter) {
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
 		int matrixNum = 0;
-		
-		switch(letter){
-		case "A":
-			matrixNum = 0;
-			break;
-		case "B":
-			matrixNum = 1;
-			break;
-		case "C":
-			matrixNum = 2;
-			break;
-		case "D":
-			matrixNum = 3;
-			break;
-		case "E":
-			matrixNum = 4;
-			break;
+
+		switch (letter) {
+			case "A":
+				matrixNum = 0;
+				break;
+			case "B":
+				matrixNum = 1;
+				break;
+			case "C":
+				matrixNum = 2;
+				break;
+			case "D":
+				matrixNum = 3;
+				break;
+			case "E":
+				matrixNum = 4;
+				break;
 		}
-		
+
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		int storedRows = prefs.getInt(rowName, 0); //0 is the default value
 		int storedColumns = prefs.getInt(columnName, 0); //0 is the default value
 		String storedMatrix = prefs.getString(letter, "0"); //"0" is the default value
 		String[] theMatrix = storedMatrix.split(",");
 		matrices[matrixNum] = new double[storedRows][storedColumns];
-		
-		for (int i = 0; i < storedRows; i++){
-			for (int j = 0; j < storedColumns; j++){
-				if ((((storedColumns)*i) + j) < theMatrix.length && !theMatrix[((storedColumns)*i) + j].contains("/")){
+
+		for (int i = 0; i < storedRows; i++) {
+			for (int j = 0; j < storedColumns; j++) {
+				if ((((storedColumns) * i) + j) < theMatrix.length && !theMatrix[((storedColumns) * i) + j].contains("/")) {
 					try {
-						matrices[matrixNum][i][j] = Double.parseDouble(theMatrix[((storedColumns)*i) + j]);
-					} catch (NumberFormatException e){
+						matrices[matrixNum][i][j] = Double.parseDouble(theMatrix[((storedColumns) * i) + j]);
+					} catch (NumberFormatException e) {
 						// Leave element as 0
 					}
-				}
-				else {
-					String[] s = theMatrix[((storedColumns)*i) + j].split("/");
+				} else {
+					String[] s = theMatrix[((storedColumns) * i) + j].split("/");
 					try {
 						matrices[matrixNum][i][j] = Double.parseDouble(s[0]) / Double.parseDouble(s[1]);
-					} catch (NumberFormatException e){
+					} catch (NumberFormatException e) {
 						// Leave element as 0
 					}
 				}
-				
+
 			}
 		}
 	}
-	
-	public void saveScalar(){
+
+	public void saveScalar() {
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
 		editor.putFloat("scalar", scalar);
 		editor.apply();
 	}
-	
-	public float getScalar(){
+
+	public float getScalar() {
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		return prefs.getFloat("scalar", 1f);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
-		
-	    if (v.getId() == createButton.getId()){
-	    	
-	    	// Start new activity with blank matrix
+
+		if (v.getId() == createButton.getId()) {
+
+			// Start new activity with blank matrix
 
 			matrix.delete(0, matrix.length());
 
-	    	for (int i = 0; i < row; i++){
-		    	for (int j = 0; j < column; j++){
-		    		matrix.append("0,");
-		    	}
-	    	}
-	    	
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < column; j++) {
+					matrix.append("0,");
+				}
+			}
+
 			Intent intent = new Intent(this, MatrixActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putInt("row", row); 
-			bundle.putInt("column", column); 
+			bundle.putInt("row", row);
+			bundle.putInt("column", column);
 			bundle.putString("loadMatrix", null);
-			intent.putExtras(bundle); 
+			intent.putExtras(bundle);
 			startActivity(intent);
-		}
-	    else if (v.getId() == matrixA.getId()){
-	    	this.startNewMatrixActivity("A");	// Edit Matrix A
-		}
-	    else if (v.getId() == matrixB.getId()){
-	    	this.startNewMatrixActivity("B");	// Edit Matrix B
-		}
-	    else if (v.getId() == matrixC.getId()){
-	    	this.startNewMatrixActivity("C");	// Edit Matrix C
-		}
-	    else if (v.getId() == matrixD.getId()){
-	    	this.startNewMatrixActivity("D");	// Edit Matrix D
-		}
-	    else if (v.getId() == matrixE.getId()){
-	    	this.startNewMatrixActivity("E");	// Edit Matrix D
-		}
-	    else if (v.getId() == scalarButton.getId()){
-	    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		} else if (v.getId() == matrixA.getId()) {
+			this.startNewMatrixActivity("A");    // Edit Matrix A
+		} else if (v.getId() == matrixB.getId()) {
+			this.startNewMatrixActivity("B");    // Edit Matrix B
+		} else if (v.getId() == matrixC.getId()) {
+			this.startNewMatrixActivity("C");    // Edit Matrix C
+		} else if (v.getId() == matrixD.getId()) {
+			this.startNewMatrixActivity("D");    // Edit Matrix D
+		} else if (v.getId() == matrixE.getId()) {
+			this.startNewMatrixActivity("E");    // Edit Matrix D
+		} else if (v.getId() == scalarButton.getId()) {
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-	    	alert.setTitle("Edit Scalar Constant");
-	    	alert.setMessage("Enter a value for c:");
+			alert.setTitle("Edit Scalar Constant");
+			alert.setMessage("Enter a value for c:");
 
-	    	final EditText input = new EditText(this);
-	    	input.setGravity(Gravity.CENTER);
-	    	input.setPadding(0, 0, 0, 0);
-	    	input.setBackgroundColor(Color.WHITE);
-	    	input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-	    	alert.setView(input);
+			final EditText input = new EditText(this);
+			input.setGravity(Gravity.CENTER);
+			input.setPadding(0, 0, 0, 0);
+			input.setBackgroundColor(Color.WHITE);
+			input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+			alert.setView(input);
 
-	    	alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	    		public void onClick(DialogInterface dialog, int whichButton) {
-	    			if (!input.getText().toString().equals("")){
-	    				try{
-			    			scalar = Float.parseFloat(input.getText().toString());
-						}
-						catch(NumberFormatException e){
+			alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					if (!input.getText().toString().equals("")) {
+						try {
+							scalar = Float.parseFloat(input.getText().toString());
+						} catch (NumberFormatException e) {
 							scalar = getScalar();
 						}
-		    			saveScalar();
-	    			}
-	    		}
-	    	});
+						saveScalar();
+					}
+				}
+			});
 
-	    	alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-	    		public void onClick(DialogInterface dialog, int whichButton) {
-	    			dialog.cancel();
-	    		}
-	    	});
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					dialog.cancel();
+				}
+			});
 
-	    	alert.show();
-	    }
-	    else if (v.getId() == calculateButton.getId()){
-	    	boolean isReady = true;
-	    	double[][][] matrices = new double[NUM_MATRICES][][];
+			alert.show();
+		} else if (v.getId() == calculateButton.getId()) {
+			boolean isReady = true;
+			double[][][] matrices = new double[NUM_MATRICES][][];
 
-	    	// Load all four matrices	    	
-	    	String[] letters = {"A", "B", "C", "D", "E"};
-	    	for (String s : letters){
-	    		this.parseMatrices(matrices, s);
-	    	}
-	    	
+			// Load all four matrices
+			String[] letters = {"A", "B", "C", "D", "E"};
+			for (String s : letters) {
+				this.parseMatrices(matrices, s);
+			}
+
 			int firstRow = matrices[first].length;
 			int firstColumn = matrices[first][0].length;
 			int secondRow = matrices[second].length;
 			int secondColumn = matrices[second][0].length;
-			
+
 			int resultRow = firstRow;
 			int resultColumn = firstColumn;
 			double[][] resultMatrix = new double[resultRow][resultColumn];
 
-			
+
 			// ---------------------------------------------------------
 			// Look at op code and perform the appropriate calculation
 			// ---------------------------------------------------------
-			
+
 			// Adding matrices
-			if (op == 0){
-				if (firstRow == secondRow && firstColumn == secondColumn){
+			if (op == 0) {
+				if (firstRow == secondRow && firstColumn == secondColumn) {
 					resultMatrix = MatrixOperations.addMatrix(matrices[first], matrices[second]);
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
@@ -520,23 +509,21 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			}
 
 			// Subtracting matrices
-			else if (op == 1){
-				if (firstRow == secondRow && firstColumn == secondColumn){
+			else if (op == 1) {
+				if (firstRow == secondRow && firstColumn == secondColumn) {
 					resultMatrix = MatrixOperations.subtractMatrix(matrices[first], matrices[second]);
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
 			}
-			
+
 			// Multiplying matrices
-			else if (op == 2){
-				if (firstColumn == secondRow){
+			else if (op == 2) {
+				if (firstColumn == secondRow) {
 					resultMatrix = MatrixOperations.multiplyMatrix(matrices[first], matrices[second]);
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
@@ -544,83 +531,79 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			}
 
 			// Transposing matrices
-			else if (op == 3){
+			else if (op == 3) {
 				resultMatrix = MatrixOperations.transposeMatrix(matrices[first]);
 			}
-			
+
 			// Inverting matrices
-			else if (op == 4){
-				
-				if (firstRow == firstColumn){
+			else if (op == 4) {
+
+				if (firstRow == firstColumn) {
 					resultMatrix = MatrixOperations.invertMatrix(resultRow, resultColumn, matrices[first]);
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
 
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
 					Toast message = Toast.makeText(getApplicationContext(), "Matrix is not invertible", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
 			}
-			
+
 			// Multiply by constant lambda
-			else if (op == 5){
+			else if (op == 5) {
 				scalar = getScalar();
 				resultMatrix = MatrixOperations.multiplyScalar(resultRow, resultColumn, matrices[first], scalar);
 			}
 
 			// Basis for null space
-			else if (op == 6){
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+			else if (op == 6) {
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
 					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
-				}
-				else {
+				} else {
 					resultMatrix = MatrixOperations.calculateNullSpace(resultRow, resultColumn, matrices[first]);
 				}
 
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
 					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
 			}
-			
+
 			// Bases for column space
-			else if (op == 7){
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+			else if (op == 7) {
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
 					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
-				}
-				else {
+				} else {
 					resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[first]);
 				}
 
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
 					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
 				}
 			}
-			
+
 			// Bases for row space
-			else if (op == 8){
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])){
+			else if (op == 8) {
+				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
 					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
-				}
-				else {
+				} else {
 					resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[first]);
 				}
 
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)){
+				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
 					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
@@ -628,8 +611,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			}
 
 			// Determinant
-			else if (op == 9){
-				if (resultRow == resultColumn){
+			else if (op == 9) {
+				if (resultRow == resultColumn) {
 					AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 					alert.setTitle("Determinant");
@@ -653,8 +636,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 					alert.show();
 					isReady = false;
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate determinant.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
@@ -662,8 +644,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			}
 
 			// Eigenvalues
-			else if (op == 10){
-				if (resultRow == resultColumn){
+			else if (op == 10) {
+				if (resultRow == resultColumn) {
 					AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 					alert.setTitle("Determinant");
@@ -687,8 +669,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 					alert.show();
 					isReady = false;
-				}
-				else {
+				} else {
 					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate eigenvalues.", Toast.LENGTH_SHORT);
 					message.show();
 					isReady = false;
@@ -697,48 +678,43 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			}
 
 			// If there is no problem with the dimensions, display the calculation in a new activity
-			if (isReady){
+			if (isReady) {
 				resultRow = resultMatrix.length;
 				resultColumn = resultMatrix[0].length;
 				String matrixString = MatrixOperations.matrixToString(resultRow, resultColumn, resultMatrix);
-				
+
 				Intent intent = new Intent(this, DisplayActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putInt("row", resultRow); 
-				bundle.putInt("column", resultColumn); 
+				bundle.putInt("row", resultRow);
+				bundle.putInt("column", resultColumn);
 				bundle.putString("matrix", matrixString);
-				intent.putExtras(bundle); 
+				intent.putExtras(bundle);
 				startActivity(intent);
 			}
-	    }		
+		}
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		if (parent.getId() == rowMenu.getId()){
+		if (parent.getId() == rowMenu.getId()) {
 			row = pos + 1;
-		}
-		else if (parent.getId() == columnMenu.getId()){
+		} else if (parent.getId() == columnMenu.getId()) {
 			column = pos + 1;
-		}
-		else if (parent.getId() == operator.getId()){
-			if (pos >= 3){
+		} else if (parent.getId() == operator.getId()) {
+			if (pos >= 3) {
 				secondMatrix.setVisibility(View.INVISIBLE);
-			}
-			else{
+			} else {
 				secondMatrix.setVisibility(View.VISIBLE);
 			}
-			
+
 			op = pos;
-		}
-		else if (parent.getId() == firstMatrix.getId()){
+		} else if (parent.getId() == firstMatrix.getId()) {
 			first = pos;
-		}
-		else if (parent.getId() == secondMatrix.getId()){			
+		} else if (parent.getId() == secondMatrix.getId()) {
 			second = pos;
 		}
 	}
-	
+
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// Do nothing
