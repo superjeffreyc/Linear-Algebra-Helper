@@ -416,12 +416,29 @@ public class MatrixOperations {
 
 	public static boolean isZeroMatrix(int rows, int columns, double[][] matrixA) {
 		boolean isZero = true;
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				if (matrixA[i][j] != 0) {
-					isZero = false;
+		boolean isDone = false;
+		int i = 0;
+		int j = 0;
+
+		// Searches the matrix for non-zero entries. Stops when a non-zero element is found.
+		while (!isDone) {
+
+			if (matrixA[i][j] != 0) {
+				isDone = true;
+				isZero = false;
+			}
+
+			j++;
+
+			if (j == columns) {
+				j = 0;
+				i++;
+
+				if (i == rows) {
+					isDone = true;
 				}
 			}
+
 		}
 
 		return isZero;
