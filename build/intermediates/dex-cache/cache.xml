@@ -1,3 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-basement-8.4.0_528342a23cd6d0b5462c34a2d0518dc616139c9a.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.android.support-animated-vector-drawable-23.3.0_c984974d6dac9e951bfdbb4f8083cdf57bb83c80.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\internal_impl-23.3.0_75fa984e1735f5f8c33972ceb095388dce02ce66.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.android.support-appcompat-v7-23.3.0_adfa23420ee9b1987550d825d0e72e7ad50ba3e9.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-ads-8.4.0_908ada8d1ea65ecd148ee3e8fe9e0293993572fe.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.android.support-support-v4-23.3.0_28b398584bd6333ff2b75c944702bda4f1889f8f.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\support-annotations-23.3.0_ddb5b711e378cf1d4a3ea99528098ee2313bf9ef.jar" />
+    </item>
+    <item
+        jar="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="C:\Users\JeffreyChan\StudioProjects\Enter-The-Matrix\app\build\intermediates\pre-dexed\release\com.android.support-support-vector-drawable-23.3.0_28f123d7f2a26b3405e48172e6675efec4a74e08.jar" />
+    </item>
+
+</items>
