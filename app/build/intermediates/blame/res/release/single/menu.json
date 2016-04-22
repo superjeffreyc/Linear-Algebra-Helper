@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\build\\intermediates\\res\\merged\\release\\menu\\start.xml",
+        "source": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\src\\main\\res\\menu\\start.xml"
+    },
+    {
+        "merged": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\build\\intermediates\\res\\merged\\release\\menu\\display.xml",
+        "source": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\src\\main\\res\\menu\\display.xml"
+    },
+    {
+        "merged": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\build\\intermediates\\res\\merged\\release\\menu\\matrix.xml",
+        "source": "C:\\Users\\JeffreyChan\\StudioProjects\\Enter-The-Matrix\\app\\src\\main\\res\\menu\\matrix.xml"
+    }
+]

@@ -17,9 +17,7 @@
     <item name="calculateButton" type="id"/>
     <item name="rowMenu" type="id"/>
     <item name="columnMenu" type="id"/>
-    <item name="firstMatrix" type="id"/>
     <item name="operator" type="id"/>
-    <item name="secondMatrix" type="id"/>
 
 
 </resources>

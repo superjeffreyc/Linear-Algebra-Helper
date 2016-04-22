@@ -153,7 +153,6 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		saveE.setOnClickListener(this);
 		saveE.setId(R.id.saveToE);
 
-
 		// Add the buttons to the relative layout
 		mainLayout.addView(reduceButton);
 		mainLayout.addView(saveA);
@@ -161,8 +160,6 @@ public class MatrixActivity extends Activity implements OnClickListener {
 		mainLayout.addView(saveC);
 		mainLayout.addView(saveD);
 		mainLayout.addView(saveE);
-
-
 	}
 
 	@Override

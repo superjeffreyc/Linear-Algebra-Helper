@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.view.Display;
 import android.view.Gravity;
@@ -30,19 +31,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class StartActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
 	TextView createTextView, editTextView, calculationTextView;
 	Button createButton, matrixA, matrixB, matrixC, matrixD, calculateButton, matrixE, scalarButton;
-	Spinner rowMenu, columnMenu, firstMatrix, operator, secondMatrix;
+	Spinner rowMenu, columnMenu, operator;
+	Spinner[] matrixMenus = new Spinner[2];
 	int row, column, width, height, op, first, second, viewHeights;
 	RelativeLayout mainLayout;
-	boolean isStarting = true;
+	boolean isStarting = true, hasSecondMatrix;
 	float startHeight;
 	int saveButtonWidths;
 	final int NUM_MATRICES = 5;
 	float scalar = 1f;
 	StringBuilder matrix = new StringBuilder();
+	Context context = this;
+	Map<Integer, String> map = new HashMap<>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +63,29 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		setContentView(R.layout.activity_start);
 		getWindow().getDecorView().setBackgroundColor(Color.rgb(34, 177, 76));
 
+		AdView mAdView = (AdView) findViewById(R.id.ad_view);
+		AdRequest adRequest = new AdRequest.Builder()
+				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+				.build();
+		mAdView.loadAd(adRequest);
+
 		// Get dimensions of screen and set up display variables
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
 		width = size.x;
-		height = size.y;
+		height = size.y - AdSize.SMART_BANNER.getHeightInPixels(this);
+
 		startHeight = height / 50;
 		viewHeights = height / 13;
 
 		saveButtonWidths = width / 2;
+
+		map.put(0, "A");
+		map.put(1, "B");
+		map.put(2, "C");
+		map.put(3, "D");
+		map.put(4, "E");
 
 		// ---------------------------------------------
 		// Define all the views
@@ -107,15 +131,20 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		columnMenu.setOnItemSelectedListener(this);
 		columnMenu.setSelection(2);
 
-		firstMatrix = new Spinner(this);
-		firstMatrix.setId(R.id.firstMatrix);
-		firstMatrix.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
-		firstMatrix.setX(5);
-		ArrayAdapter<CharSequence> firstAdapter = ArrayAdapter.createFromResource(this, R.array.matrixArray, R.layout.spinner_item);
-		rowAdapter.setDropDownViewResource(R.layout.spinner_item);
-		firstMatrix.setAdapter(firstAdapter);
-		firstMatrix.setOnItemSelectedListener(this);
-		firstMatrix.setSelection(0);
+		for (int i = 0; i < 2; i++) {
+			matrixMenus[i] = new Spinner(this);
+			matrixMenus[i].setId(View.generateViewId());
+			matrixMenus[i].setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.matrixArray, R.layout.spinner_item);
+			matrixMenus[i].setAdapter(adapter);
+			matrixMenus[i].setSelection(i);
+			matrixMenus[i].setOnItemSelectedListener(this);
+
+			if (i == 0) matrixMenus[i].setX(5);
+			else matrixMenus[i].setX(2 + 2 * width / 3);
+
+			mainLayout.addView(matrixMenus[i]);
+		}
 
 		operator = new Spinner(this);
 		operator.setId(R.id.operator);
@@ -127,15 +156,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		operator.setOnItemSelectedListener(this);
 		operator.setSelection(0);
 
-		secondMatrix = new Spinner(this);
-		secondMatrix.setId(R.id.secondMatrix);
-		secondMatrix.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
-		secondMatrix.setX(2 + 2 * width / 3);
-		ArrayAdapter<CharSequence> secondAdapter = ArrayAdapter.createFromResource(this, R.array.matrixArray, R.layout.spinner_item);
-		rowAdapter.setDropDownViewResource(R.layout.spinner_item);
-		secondMatrix.setAdapter(secondAdapter);
-		secondMatrix.setOnItemSelectedListener(this);
-		secondMatrix.setSelection(1);
+
 
 		createButton = new Button(this);
 		createButton.setText(R.string.create);
@@ -193,9 +214,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		// Add these views to the relative layout
 		mainLayout.addView(rowMenu);
 		mainLayout.addView(columnMenu);
-		mainLayout.addView(firstMatrix);
 		mainLayout.addView(operator);
-		mainLayout.addView(secondMatrix);
 		mainLayout.addView(createTextView);
 		mainLayout.addView(createButton);
 		mainLayout.addView(editTextView);
@@ -273,9 +292,9 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 			calculationTextView.setY(matrixE.getY() + matrixE.getHeight() + 10);
 
-			firstMatrix.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
+			matrixMenus[0].setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
 			operator.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
-			secondMatrix.setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
+			matrixMenus[1].setY(calculationTextView.getY() + calculationTextView.getHeight() + 5);
 
 			calculateButton.setY(height - 3 * calculateButton.getHeight() / 2);
 
@@ -345,28 +364,9 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		startActivity(intent);
 	}
 
-	private void parseMatrices(double[][][] matrices, String letter) {
+	private void parseMatrices(double[][][] matrices, String letter, int matrixNum) {
 		String rowName = "row" + letter;
 		String columnName = "column" + letter;
-		int matrixNum = 0;
-
-		switch (letter) {
-			case "A":
-				matrixNum = 0;
-				break;
-			case "B":
-				matrixNum = 1;
-				break;
-			case "C":
-				matrixNum = 2;
-				break;
-			case "D":
-				matrixNum = 3;
-				break;
-			case "E":
-				matrixNum = 4;
-				break;
-		}
 
 		SharedPreferences prefs = this.getSharedPreferences("matrices", Context.MODE_PRIVATE);
 		int storedRows = prefs.getInt(rowName, 0); //0 is the default value
@@ -474,223 +474,240 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 			alert.show();
 		} else if (v.getId() == calculateButton.getId()) {
-			boolean isReady = true;
-			double[][][] matrices = new double[NUM_MATRICES][][];
 
-			// Load all four matrices
-			String[] letters = {"A", "B", "C", "D", "E"};
-			for (String s : letters) {
-				this.parseMatrices(matrices, s);
-			}
+			//----------------------------------------------------------------------------------------Begin Calculate
 
-			int firstRow = matrices[first].length;
-			int firstColumn = matrices[first][0].length;
-			int secondRow = matrices[second].length;
-			int secondColumn = matrices[second][0].length;
+			// Run calculation in new thread
+			Handler handler = new Handler();
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
 
-			int resultRow = firstRow;
-			int resultColumn = firstColumn;
-			double[][] resultMatrix = new double[resultRow][resultColumn];
+					boolean isReady = true;
+
+					double[][][] matrices;
+					if (hasSecondMatrix) matrices = new double[2][][];
+					else matrices = new double[1][][];
+
+					// Load matrices being calculated
+					parseMatrices(matrices, map.get(first), 0);
+					int firstRow = matrices[0].length;
+					int firstColumn = matrices[0][0].length;
+
+					int secondRow = 0, secondColumn = 0;
+					if (hasSecondMatrix) {
+						parseMatrices(matrices, map.get(second), 1);
+						secondRow = matrices[1].length;
+						secondColumn = matrices[1][0].length;
+					}
+
+					int resultRow = firstRow;
+					int resultColumn = firstColumn;
+					double[][] resultMatrix = new double[resultRow][resultColumn];
 
 
-			// ---------------------------------------------------------
-			// Look at op code and perform the appropriate calculation
-			// ---------------------------------------------------------
+					// ---------------------------------------------------------
+					// Look at op code and perform the appropriate calculation
+					// ---------------------------------------------------------
 
-			// Adding matrices
-			if (op == 0) {
-				if (firstRow == secondRow && firstColumn == secondColumn) {
-					resultMatrix = MatrixOperations.addMatrix(matrices[first], matrices[second]);
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Subtracting matrices
-			else if (op == 1) {
-				if (firstRow == secondRow && firstColumn == secondColumn) {
-					resultMatrix = MatrixOperations.subtractMatrix(matrices[first], matrices[second]);
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Multiplying matrices
-			else if (op == 2) {
-				if (firstColumn == secondRow) {
-					resultMatrix = MatrixOperations.multiplyMatrix(matrices[first], matrices[second]);
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Transposing matrices
-			else if (op == 3) {
-				resultMatrix = MatrixOperations.transposeMatrix(matrices[first]);
-			}
-
-			// Inverting matrices
-			else if (op == 4) {
-
-				if (firstRow == firstColumn) {
-					resultMatrix = MatrixOperations.invertMatrix(resultRow, resultColumn, matrices[first]);
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
-					Toast message = Toast.makeText(getApplicationContext(), "Matrix is not invertible", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Multiply by constant lambda
-			else if (op == 5) {
-				scalar = getScalar();
-				resultMatrix = MatrixOperations.multiplyScalar(resultRow, resultColumn, matrices[first], scalar);
-			}
-
-			// Basis for null space
-			else if (op == 6) {
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
-					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				} else {
-					resultMatrix = MatrixOperations.calculateNullSpace(resultRow, resultColumn, matrices[first]);
-				}
-
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
-					Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Bases for column space
-			else if (op == 7) {
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
-					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				} else {
-					resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[first]);
-				}
-
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
-					Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Bases for row space
-			else if (op == 8) {
-				if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[first])) {
-					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				} else {
-					resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[first]);
-				}
-
-				if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
-					Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Determinant
-			else if (op == 9) {
-				if (resultRow == resultColumn) {
-					AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-					alert.setTitle("Determinant");
-					alert.setMessage("");
-
-					final TextView display = new TextView(this);
-					display.setGravity(Gravity.CENTER);
-					display.setPadding(0, 0, 0, 0);
-					display.setBackgroundColor(Color.WHITE);
-					String det = "" + MatrixOperations.calculateDeterminant(resultRow, resultColumn, matrices[first]);
-					display.setText(det);
-					display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-					display.setTextSize(30f);
-					alert.setView(display);
-
-					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-
+					// Adding matrices
+					if (op == 0) {
+						if (firstRow == secondRow && firstColumn == secondColumn) {
+							resultMatrix = MatrixOperations.addMatrix(matrices[0], matrices[1]);
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot add with these dimensions", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
 						}
-					});
+					}
 
-					alert.show();
-					isReady = false;
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate determinant.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
-				}
-			}
-
-			// Eigenvalues
-			else if (op == 10) {
-				if (resultRow == resultColumn) {
-					AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-					alert.setTitle("Determinant");
-					alert.setMessage("");
-
-					final TextView display = new TextView(this);
-					display.setGravity(Gravity.CENTER);
-					display.setPadding(0, 0, 0, 0);
-					display.setBackgroundColor(Color.WHITE);
-					String det = "" + MatrixOperations.calculateEigenvalues(resultRow, resultColumn, matrices[first]);
-					display.setText(det);
-					display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-					display.setTextSize(30f);
-					alert.setView(display);
-
-					alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-
+					// Subtracting matrices
+					else if (op == 1) {
+						if (firstRow == secondRow && firstColumn == secondColumn) {
+							resultMatrix = MatrixOperations.subtractMatrix(matrices[0], matrices[1]);
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot subtract with these dimensions", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
 						}
-					});
+					}
 
-					alert.show();
-					isReady = false;
-				} else {
-					Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate eigenvalues.", Toast.LENGTH_SHORT);
-					message.show();
-					isReady = false;
+					// Multiplying matrices
+					else if (op == 2) {
+						if (firstColumn == secondRow) {
+							resultMatrix = MatrixOperations.multiplyMatrix(matrices[0], matrices[1]);
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot multiply with these dimensions", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Transposing matrices
+					else if (op == 3) {
+						resultMatrix = MatrixOperations.transposeMatrix(matrices[0]);
+					}
+
+					// Inverting matrices
+					else if (op == 4) {
+
+						if (firstRow == firstColumn) {
+							resultMatrix = MatrixOperations.invertMatrix(resultRow, resultColumn, matrices[0]);
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot invert with these dimensions", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+
+						if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
+							Toast message = Toast.makeText(getApplicationContext(), "Matrix is not invertible", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Multiply by constant lambda
+					else if (op == 5) {
+						scalar = getScalar();
+						resultMatrix = MatrixOperations.multiplyScalar(resultRow, resultColumn, matrices[0], scalar);
+					}
+
+					// Basis for null space
+					else if (op == 6) {
+						if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[0])) {
+							Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						} else {
+							resultMatrix = MatrixOperations.calculateNullSpace(resultRow, resultColumn, matrices[0]);
+						}
+
+						if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
+							Toast message = Toast.makeText(getApplicationContext(), "Null space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Bases for column space
+					else if (op == 7) {
+						if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[0])) {
+							Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						} else {
+							resultMatrix = MatrixOperations.calculateColumnSpace(resultRow, resultColumn, matrices[0]);
+						}
+
+						if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
+							Toast message = Toast.makeText(getApplicationContext(), "Column space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Bases for row space
+					else if (op == 8) {
+						if (MatrixOperations.isZeroMatrix(resultRow, resultColumn, matrices[0])) {
+							Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						} else {
+							resultMatrix = MatrixOperations.calculateRowSpace(resultRow, resultColumn, matrices[0]);
+						}
+
+						if (isReady && MatrixOperations.isZeroMatrix(resultMatrix.length, resultMatrix[0].length, resultMatrix)) {
+							Toast message = Toast.makeText(getApplicationContext(), "Row space does not exist.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Determinant
+					else if (op == 9) {
+						if (resultRow == resultColumn) {
+							AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
+							alert.setTitle("Determinant");
+							alert.setMessage("");
+
+							final TextView display = new TextView(context);
+							display.setGravity(Gravity.CENTER);
+							display.setPadding(0, 0, 0, 0);
+							display.setBackgroundColor(Color.WHITE);
+							String det = "" + MatrixOperations.calculateDeterminant(resultRow, resultColumn, matrices[0]);
+							display.setText(det);
+							display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+							display.setTextSize(30f);
+							alert.setView(display);
+
+							alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+
+								}
+							});
+
+							alert.show();
+							isReady = false;
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate determinant.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+					}
+
+					// Eigenvalues
+					else if (op == 10) {
+						if (resultRow == resultColumn) {
+							AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
+							alert.setTitle("Determinant");
+							alert.setMessage("");
+
+							final TextView display = new TextView(context);
+							display.setGravity(Gravity.CENTER);
+							display.setPadding(0, 0, 0, 0);
+							display.setBackgroundColor(Color.WHITE);
+							String det = "" + MatrixOperations.calculateEigenvalues(resultRow, resultColumn, matrices[0]);
+							display.setText(det);
+							display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+							display.setTextSize(30f);
+							alert.setView(display);
+
+							alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+									dialog.cancel();
+								}
+							});
+
+							alert.show();
+							isReady = false;
+						} else {
+							Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate eigenvalues.", Toast.LENGTH_SHORT);
+							message.show();
+							isReady = false;
+						}
+
+					}
+
+					// If there is no problem with the dimensions, display the calculation in a new activity
+					if (isReady) {
+						resultRow = resultMatrix.length;
+						resultColumn = resultMatrix[0].length;
+						String matrixString = MatrixOperations.matrixToString(resultRow, resultColumn, resultMatrix);
+						Intent intent = new Intent(context, DisplayActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putInt("row", resultRow);
+						bundle.putInt("column", resultColumn);
+						bundle.putString("matrix", matrixString);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
 				}
+			});
+			//----------------------------------------------------------------------------------------End Calculate
 
-			}
 
-			// If there is no problem with the dimensions, display the calculation in a new activity
-			if (isReady) {
-				resultRow = resultMatrix.length;
-				resultColumn = resultMatrix[0].length;
-				String matrixString = MatrixOperations.matrixToString(resultRow, resultColumn, resultMatrix);
-
-				Intent intent = new Intent(this, DisplayActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putInt("row", resultRow);
-				bundle.putInt("column", resultColumn);
-				bundle.putString("matrix", matrixString);
-				intent.putExtras(bundle);
-				startActivity(intent);
-			}
 		}
 	}
 
@@ -702,15 +719,17 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			column = pos + 1;
 		} else if (parent.getId() == operator.getId()) {
 			if (pos >= 3) {
-				secondMatrix.setVisibility(View.INVISIBLE);
+				matrixMenus[1].setVisibility(View.INVISIBLE);
+				hasSecondMatrix = false;
 			} else {
-				secondMatrix.setVisibility(View.VISIBLE);
+				matrixMenus[1].setVisibility(View.VISIBLE);
+				hasSecondMatrix = true;
 			}
 
 			op = pos;
-		} else if (parent.getId() == firstMatrix.getId()) {
+		} else if (parent.getId() == matrixMenus[0].getId()) {
 			first = pos;
-		} else if (parent.getId() == secondMatrix.getId()) {
+		} else if (parent.getId() == matrixMenus[1].getId()) {
 			second = pos;
 		}
 	}
