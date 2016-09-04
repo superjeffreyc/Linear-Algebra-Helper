@@ -1,6 +1,8 @@
 package com.jeffreychan.enterthematrix;
 
 import java.text.DecimalFormat;
+import Jama.Matrix;
+import Jama.EigenvalueDecomposition;
 
 public class MatrixOperations {
 
@@ -52,6 +54,58 @@ public class MatrixOperations {
 				sb.append(",");
 
 			}
+
+		}
+
+		return sb.toString();
+	}
+
+	public static String arrayToString(double[] array) {
+
+		// Create a string of all the array elements
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == 0) {
+				// If the element is 0, append 0
+				sb.append("0");
+			} else if (Math.abs(array[i]) % 1 < 1E-6) {
+				// If the remainder is nearly 0, remove the decimal places and append
+				sb.append((int) array[i]);
+			} else if (Math.abs(array[i]) % 1 > 0.999999 && array[i] > 0) {
+				// If the element is positive and remainder is nearly 1, round up and append
+				sb.append((int) Math.ceil(array[i]));
+			} else if (Math.abs(array[i]) % 1 > 0.999999 && array[i] < 0) {
+				// If the element is negative and remainder is nearly 1, round down and append
+				sb.append((int) Math.floor(array[i]));
+			} else {
+				// The element is not a whole number
+
+				boolean done = false;
+				double n = 2.0;
+				final int MAX_DENOMINATOR = 10000;
+
+				// Finds possible denominators up to MAX_DENOMINATOR and append the appropriate fraction
+				while (!done && n <= MAX_DENOMINATOR) {
+					if ((Math.abs(array[i]) / (1.0 / n)) % 1 < 1E-6 || (Math.abs(array[i]) / (1.0 / n)) % 1 > 0.999999) {
+						done = true;
+						sb.append((int) (Math.round(array[i] / (1.0 / n))));
+						sb.append("/");
+						sb.append((int) n);
+					}
+
+					n++;
+				}
+
+				// If a denominator cannot be found, just round the number to two decimal places
+				if (!done) {
+					DecimalFormat df = new DecimalFormat("#.00");
+					sb.append(df.format(array[i]));
+				}
+			}
+
+			if (i != array.length - 1) sb.append(",");
 
 		}
 
@@ -407,11 +461,22 @@ public class MatrixOperations {
 		return det;
 	}
 
-	public static String calculateEigenvalues(int resultRow, int resultColumn, double[][] matrixA) {
+	public static String calculateEigenvalues(double[][] matrixA) {
 
-		// TODO: eigenvalues
+		Matrix m = Matrix.constructWithCopy(matrixA);
+		EigenvalueDecomposition e = m.eig();
+		double[] eigenvalues = e.getRealEigenvalues();
 
-		return "0";
+		return arrayToString(eigenvalues);
+	}
+
+	public static double[][] calculateEigenvectors(double[][] matrixA) {
+
+		Matrix m = Matrix.constructWithCopy(matrixA);
+		EigenvalueDecomposition e = m.eig();
+		Matrix v = e.getV();
+		return v.getArrayCopy();    // TODO: Need to fix calculations for rounding and fractions
+
 	}
 
 	public static boolean isZeroMatrix(int rows, int columns, double[][] matrixA) {

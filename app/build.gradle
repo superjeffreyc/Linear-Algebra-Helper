@@ -27,7 +27,9 @@ android {
     }
 }
 
+
 dependencies {
+    compile files('libs/Jama-1.0.3.jar')
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.google.android.gms:play-services-ads:9.4.0'
 }

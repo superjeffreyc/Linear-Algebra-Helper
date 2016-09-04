@@ -77,6 +77,10 @@
         <item>"Col Sp"</item>
         <item>"Row Sp"</item>
         <item>"det"</item>
+	    <item>"Eig val"</item>
+	    <item>"Eig vec"</item>
+
+
 
     </string-array>
 

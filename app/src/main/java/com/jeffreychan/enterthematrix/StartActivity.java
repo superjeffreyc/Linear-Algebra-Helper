@@ -37,6 +37,7 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.HashMap;
 import java.util.Map;
+import Jama.*;
 
 public class StartActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
@@ -658,17 +659,17 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 
 					// Eigenvalues
 					else if (op == 10) {
-						if (resultRow == resultColumn) {
+						if (resultRow == resultColumn) {    // Is a square matrix
 							AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-							alert.setTitle("Determinant");
+							alert.setTitle("Eigenvalues");
 							alert.setMessage("");
 
 							final TextView display = new TextView(context);
 							display.setGravity(Gravity.CENTER);
 							display.setPadding(0, 0, 0, 0);
 							display.setBackgroundColor(Color.WHITE);
-							String det = "" + MatrixOperations.calculateEigenvalues(resultRow, resultColumn, matrices[0]);
+							String det = "" + MatrixOperations.calculateEigenvalues(matrices[0]);
 							display.setText(det);
 							display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 							display.setTextSize(30f);
@@ -683,11 +684,17 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 							alert.show();
 							isReady = false;
 						} else {
-							Toast message = Toast.makeText(getApplicationContext(), "Cannot calculate eigenvalues.", Toast.LENGTH_SHORT);
+							Toast message = Toast.makeText(getApplicationContext(), "Matrix must be square.", Toast.LENGTH_SHORT);
 							message.show();
 							isReady = false;
 						}
 
+					}
+
+					// Eigenvectors
+					else if (op == 11) {
+						// TODO: Calculate eigenvectors
+						resultMatrix = MatrixOperations.calculateEigenvectors(matrices[0]);
 					}
 
 					// If there is no problem with the dimensions, display the calculation in a new activity
