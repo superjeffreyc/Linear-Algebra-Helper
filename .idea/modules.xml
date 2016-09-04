@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Enter-The-Matrix.iml" filepath="$PROJECT_DIR$/Enter-The-Matrix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Linear-Algebra-Helper.iml" filepath="$PROJECT_DIR$/Linear-Algebra-Helper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
