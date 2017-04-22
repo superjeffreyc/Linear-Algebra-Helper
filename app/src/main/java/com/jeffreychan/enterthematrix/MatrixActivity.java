@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 public class MatrixActivity extends Activity implements OnClickListener {
 
-	Button reduceButton, saveA, saveB, saveC, saveD, saveE;
+	Button reduceButton, optionsButton, saveA, saveB, saveC, saveD, saveE;
 	private int rows, columns, height;
 	EditText[][] myEditTextArray;
 	String loadMatrix;
@@ -104,12 +104,21 @@ public class MatrixActivity extends Activity implements OnClickListener {
 			}
 		}
 
-		// Create reduce and save buttons
+		// Create options button (insert identity, clear all entries, clear entries with 0)
+		optionsButton = new Button(this);
+		optionsButton.setText(R.string.options);
+		optionsButton.setId(R.id.optionsButton);
+		optionsButton.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
+		optionsButton.setX(((width / 3) / 2));
+		optionsButton.setY(rows * height / (rows + 2));
+		optionsButton.setOnClickListener(this);
+
+		// Create reduce button
 		reduceButton = new Button(this);
 		reduceButton.setText(R.string.reduce);
 		reduceButton.setId(R.id.reduceButton);
 		reduceButton.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
-		reduceButton.setX(width / 2 - ((width / 3) / 2));
+		reduceButton.setX(width/2);
 		reduceButton.setY(rows * height / (rows + 2));
 		reduceButton.setOnClickListener(this);
 
@@ -155,6 +164,7 @@ public class MatrixActivity extends Activity implements OnClickListener {
 
 		// Add the buttons to the relative layout
 		mainLayout.addView(reduceButton);
+		mainLayout.addView(optionsButton);
 		mainLayout.addView(saveA);
 		mainLayout.addView(saveB);
 		mainLayout.addView(saveC);
@@ -329,6 +339,8 @@ public class MatrixActivity extends Activity implements OnClickListener {
 			bundle.putInt("column", columns);
 			intent.putExtras(bundle);
 			startActivity(intent);
+		} else if (v.getId() == optionsButton.getId()) {
+			openOptionsMenu();
 		} else if (v.getId() == saveA.getId()) {
 			this.saveMatrix("A");
 		} else if (v.getId() == saveB.getId()) {

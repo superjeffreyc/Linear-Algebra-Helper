@@ -14,6 +14,7 @@
     <string name="Identity">Insert Identity Matrix</string>
 
     <string name="reduce">Reduce</string>
+	<string name="options">Options</string>
     <string name="saveA">Save to A</string>
     <string name="saveB">Save to B</string>
     <string name="saveC">Save to C</string>
