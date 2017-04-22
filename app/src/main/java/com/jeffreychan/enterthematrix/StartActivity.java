@@ -55,6 +55,8 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 	StringBuilder matrix = new StringBuilder();
 	Context context = this;
 	Map<Integer, String> map = new HashMap<>();
+	RelativeLayout.LayoutParams operatorParams;
+	ArrayAdapter<CharSequence> opAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +153,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		operator.setId(R.id.operator);
 		operator.setLayoutParams(new LayoutParams(width / 3, LayoutParams.WRAP_CONTENT));
 		operator.setX(2 + width / 3);
-		ArrayAdapter<CharSequence> opAdapter = ArrayAdapter.createFromResource(this, R.array.symbolArray, R.layout.spinner_item);
+		opAdapter = ArrayAdapter.createFromResource(this, R.array.symbolArray, R.layout.spinner_item);
 		rowAdapter.setDropDownViewResource(R.layout.spinner_item);
 		operator.setAdapter(opAdapter);
 		operator.setOnItemSelectedListener(this);
@@ -662,7 +664,7 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 						if (resultRow == resultColumn) {    // Is a square matrix
 							AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
-							alert.setTitle("Eigenvalues");
+							alert.setTitle("Eigenvalue(s)");
 							alert.setMessage("");
 
 							final TextView display = new TextView(context);
@@ -726,11 +728,18 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 			column = pos + 1;
 		} else if (parent.getId() == operator.getId()) {
 			if (pos >= 3) {
+				operatorParams = (RelativeLayout.LayoutParams) operator.getLayoutParams();
+				operatorParams.width = 2 * width / 3;
 				matrixMenus[1].setVisibility(View.INVISIBLE);
 				hasSecondMatrix = false;
+				opAdapter.notifyDataSetChanged();
+
 			} else {
+				operatorParams = (RelativeLayout.LayoutParams) operator.getLayoutParams();
+				operatorParams.width = width / 3;
 				matrixMenus[1].setVisibility(View.VISIBLE);
 				hasSecondMatrix = true;
+				opAdapter.notifyDataSetChanged();
 			}
 
 			op = pos;
