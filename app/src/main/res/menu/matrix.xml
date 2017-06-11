@@ -6,17 +6,17 @@
     <item
         android:id="@+id/clearAll"
         android:orderInCategory="100"
-        android:title="@+string/ClearAll"
-        app:showAsAction="never"/>
+        android:title="@string/ClearAll"
+        android:showAsAction="never"/>
     <item
         android:id="@+id/clearZero"
         android:orderInCategory="101"
-        android:title="@+string/ClearZero"
-        app:showAsAction="never"/>
+        android:title="@string/ClearZero"
+        android:showAsAction="never"/>
     <item
         android:id="@+id/insertIdentity"
         android:orderInCategory="102"
-        android:title="@+string/Identity"
-        app:showAsAction="never"/>
+        android:title="@string/Identity"
+        android:showAsAction="never"/>
 
 </menu>
