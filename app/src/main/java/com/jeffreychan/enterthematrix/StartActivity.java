@@ -671,8 +671,11 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 							display.setGravity(Gravity.CENTER);
 							display.setPadding(0, 0, 0, 0);
 							display.setBackgroundColor(Color.WHITE);
-							String det = "" + MatrixOperations.calculateEigenvalues(matrices[0]);
-							display.setText(det);
+
+							String eig = MatrixOperations.calculateEigenvalues(matrices[0]);
+							if (eig == null) eig = "Could not calculate Eigenvalue(s)";
+
+							display.setText(eig);
 							display.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 							display.setTextSize(30f);
 							alert.setView(display);

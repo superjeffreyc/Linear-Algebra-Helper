@@ -463,11 +463,15 @@ public class MatrixOperations {
 
 	public static String calculateEigenvalues(double[][] matrixA) {
 
-		Matrix m = Matrix.constructWithCopy(matrixA);
-		EigenvalueDecomposition e = m.eig();
-		double[] eigenvalues = e.getRealEigenvalues();
-
-		return arrayToString(eigenvalues);
+		try {
+			Matrix m = Matrix.constructWithCopy(matrixA);
+			EigenvalueDecomposition e = m.eig();
+			double[] eigenvalues = e.getRealEigenvalues();
+			return arrayToString(eigenvalues);
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 
 	public static double[][] calculateEigenvectors(double[][] matrixA) {
