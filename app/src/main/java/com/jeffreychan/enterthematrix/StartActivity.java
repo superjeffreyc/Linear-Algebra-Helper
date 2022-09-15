@@ -31,10 +31,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-
 import java.util.HashMap;
 import java.util.Map;
 import Jama.*;
@@ -66,18 +62,12 @@ public class StartActivity extends Activity implements OnClickListener, OnItemSe
 		setContentView(R.layout.activity_start);
 		getWindow().getDecorView().setBackgroundColor(Color.rgb(34, 177, 76));
 
-		AdView mAdView = (AdView) findViewById(R.id.ad_view);
-		AdRequest adRequest = new AdRequest.Builder()
-				.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-				.build();
-		mAdView.loadAd(adRequest);
-
 		// Get dimensions of screen and set up display variables
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
 		width = size.x;
-		height = size.y - AdSize.SMART_BANNER.getHeightInPixels(this);
+		height = size.y;
 
 		startHeight = height / 50;
 		viewHeights = height / 13;

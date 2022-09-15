@@ -5,16 +5,5 @@
     android:layout_height="match_parent"
     android:id="@+id/mainLayout"
     tools:context="com.jeffreychan.enterthematrix.StartActivity" >
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ad_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/test_ad" />
-
-
 </RelativeLayout>
 
